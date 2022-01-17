@@ -1,22 +1,9 @@
-import { NativeModules, Platform } from 'react-native';
+import type { Spec } from './turboModule';
 
-const LINKING_ERROR =
-  `The package 'react-native-indy-vdr' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo managed workflow\n';
+declare var _indyVdr: Spec;
 
-const IndyVdr = NativeModules.IndyVdr
-  ? NativeModules.IndyVdr
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+const IndyVdr = _indyVdr as Spec;
 
-export function multiply(a: number, b: number): Promise<number> {
-  return IndyVdr.multiply(a, b);
-}
+export type TurboModuleType = Spec;
+
+export default IndyVdr;

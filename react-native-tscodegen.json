@@ -1,0 +1,7 @@
+{
+  "libraryName": "IndyVdr",
+  "outputDirectory": "./lib/cpp-generated",
+  "moduleSpecName": "IndyVdr",
+  "generators": ["modulesCxx"],
+  "inputFile": "./src/turboModule.ts"
+}
