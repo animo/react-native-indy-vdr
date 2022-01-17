@@ -29,7 +29,8 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn && yarn pods"
+    "bootstrap": "yarn example && yarn && yarn pods",
+    "tscodegen": "react-native-tscodegen ./react-native-tscodegen.json"
   },
   "keywords": [
     "react-native",
@@ -60,7 +61,7 @@
     "husky": "^6.0.0",
     "jest": "^26.0.1",
     "pod-install": "^0.1.0",
-    "prettier": "^2.0.5",
+    "prettier": "^2.5.1",
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-builder-bob": "^0.18.0",
@@ -143,5 +144,9 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "react-native-tscodegen": "^0.68.4",
+    "react-native-tscodegen-types": "^0.67.3"
   }
 }

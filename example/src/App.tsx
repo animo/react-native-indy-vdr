@@ -1,18 +1,14 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-indy-vdr';
+import IndyVdr from 'react-native-indy-vdr';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text style={styles.title}>Indy VDR Example</Text>
+      <Text>set config: {IndyVdr.set_config('this will error')}</Text>
+      <Text>version: {IndyVdr.version()}</Text>
     </View>
   );
 }
@@ -23,9 +19,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginBottom: 20,
   },
 });
