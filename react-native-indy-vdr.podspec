@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.summary      = package["description"]
   s.homepage     = package["homepage"]
   s.license      = package["license"]
-  s. authors      = package["author"]
+  s.authors      = package["author"]
 
   s.platforms    = { :ios => "12.0" }
   s.source       = { :git => "https://github.com/blu3beri/react-native-indy-vdr.git", :tag => "#{s.version}" }
