@@ -1,0 +1,19 @@
+</vdr/react-native-indy-vdr/
+[   ]android/
+[✗  ]cpp/
+[✗  ]example/
+[✗  ]ios/
+[   ]lib/cpp-generated/
+[   ]node_modules/
+[   ]scripts/
+[   ]src/
+[   ]babel.config.js
+[   ]CONTRIBUTING.md
+[   ]LICENSE
+[✹  ]package.json
+[   ]react-native-indy-vdr.podspec
+[   ]react-native-tscodegen.json
+[   ]README.md
+[   ]tsconfig.build.json
+[   ]tsconfig.json
+[✹  ]yarn.lock

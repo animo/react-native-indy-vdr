@@ -8,4 +8,6 @@
 
 @interface IndyVdr : NSObject <RCTBridgeModule>
 
+@property(nonatomic, assign) BOOL setBridgeOnMainQueue;
+
 @end

@@ -4,7 +4,6 @@
 
 #include "react-native-indy-vdr.h"
 #include "../lib/cpp-generated/NativeModules.cpp"
-#include "Logging.h"
 #include "rust_header.h"
 
 using namespace facebook;

@@ -7,7 +7,6 @@
 #include <jsi/jsilib.h>
 
 #include "TurboModuleUtils.h"
-#include "Logging.h"
 
 #include "react-native-indy-vdr.h"
 
