@@ -3,22 +3,59 @@
 // need this.
 
 #include "react-native-indy-vdr.h"
-#include "../lib/cpp-generated/NativeModules.cpp"
-#include "rust_header.h"
 
 using namespace facebook;
 using namespace react;
 
-IndyVdr::IndyVdr(std::shared_ptr<CallInvoker> jsInvoker): IndyVdrCxxSpecJSI(jsInvoker) {};
+IndyVdrCxx::IndyVdrCxx(std::shared_ptr<CallInvoker> jsInvoker): IndyVdrCxxSpecJSI(jsInvoker){};
 
-double IndyVdr::set_config(jsi::Runtime &rt, const jsi::String &cfg) {
-    ErrorCode error = indy_vdr_set_config(cfg.utf8(rt).c_str());
-    return double(error);
-}
+jsi::String IndyVdrCxx::version(jsi::Runtime &rt) {
+  return jsi::String::createFromAscii(rt, indy_vdr_version());
+};
 
-jsi::String IndyVdr::version(jsi::Runtime &rt) {
-    FfiStr indy_version = indy_vdr_version();
-    jsi::String version = jsi::String::createFromAscii(rt, indy_version, strlen(indy_version));
-    return version;
-}
+void IndyVdrCxx::set_default_logger(jsi::Runtime &rt) {
+  ErrorCode code = indy_vdr_set_default_logger();
+  TurboModuleUtils::handle_error(rt, code); 
+};
 
+void IndyVdrCxx::set_config(jsi::Runtime &rt, const jsi::Object &options) {
+  std::string config = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "config"));
+
+  ErrorCode code = indy_vdr_set_config(config.c_str());
+  TurboModuleUtils::handle_error(rt, code);
+};
+
+void IndyVdrCxx::set_protocol_version(jsi::Runtime &rt, const jsi::Object &options) {
+  double version = TurboModuleUtils::jsiToValue<double>(rt, options.getProperty(rt, "version"));
+
+  ErrorCode code = indy_vdr_set_protocol_version(version);
+  TurboModuleUtils::handle_error(rt, code);
+};
+
+void IndyVdrCxx::set_socks_proxy(jsi::Runtime &rt, const jsi::Object &options) {
+  std::string socks_proxy = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "socks_proxy"));
+
+  ErrorCode code = indy_vdr_set_socks_proxy(socks_proxy.c_str());
+  TurboModuleUtils::handle_error(rt, code);
+};
+
+double IndyVdrCxx::build_acceptance_mechanisms_request(jsi::Runtime &rt, const jsi::Object &options) {
+  std::string submitter_did = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "submitter_did"));
+  std::string aml = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "aml"));
+  std::string version = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "version"));
+  std::string aml_context = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "aml_context"), true);
+  unsigned long handle = (unsigned long)TurboModuleUtils::jsiToValue<double>(rt, options.getProperty(rt, "handle_p"));
+
+  ErrorCode code = indy_vdr_build_acceptance_mechanisms_request(submitter_did.c_str(),
+                                                                aml.c_str(),
+                                                                version.c_str(),
+                                                                aml_context.c_str(),
+                                                                &handle);
+
+  TurboModuleUtils::handle_error(rt, code);
+  return handle;
+};
+
+double IndyVdrCxx::build_get_acceptance_mechanisms_request(jsi::Runtime &rt, const jsi::Object &options) {
+  return 0;
+};

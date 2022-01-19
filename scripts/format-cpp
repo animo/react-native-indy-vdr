@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+clang-format -i ../cpp/*.cpp \
+                   ../cpp/*.h   \
+                   ../lib/cpp-generated/*.h \
+                   ../lib/cpp-generated/*.cpp

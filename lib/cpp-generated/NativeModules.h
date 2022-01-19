@@ -15,10 +15,20 @@ namespace facebook {
 namespace react {
 class JSI_EXPORT IndyVdrCxxSpecJSI : public TurboModule {
 public:
-IndyVdrCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker);
-virtual double set_config(jsi::Runtime &rt, const jsi::String &cfg) = 0;
-virtual jsi::String version(jsi::Runtime &rt) = 0;
-
+  IndyVdrCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker);
+  virtual jsi::String version(jsi::Runtime &rt) = 0;
+  virtual void set_config(jsi::Runtime &rt, const jsi::Object &options) = 0;
+  virtual void set_default_logger(jsi::Runtime &rt) = 0;
+  virtual void set_protocol_version(jsi::Runtime &rt,
+                                    const jsi::Object &options) = 0;
+  virtual void set_socks_proxy(jsi::Runtime &rt,
+                               const jsi::Object &options) = 0;
+  virtual double
+  build_acceptance_mechanisms_request(jsi::Runtime &rt,
+                                      const jsi::Object &options) = 0;
+  virtual double
+  build_get_acceptance_mechanisms_request(jsi::Runtime &rt,
+                                          const jsi::Object &options) = 0;
 };
 
 } // namespace react

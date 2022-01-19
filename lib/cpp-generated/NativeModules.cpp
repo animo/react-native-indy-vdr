@@ -12,19 +12,72 @@
 namespace facebook {
 namespace react {
 
-static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_config(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
-  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->set_config(rt, args[0].getString(rt));
-}
-static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_version(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+static jsi::Value
+__hostFunction_IndyVdrCxxSpecJSI_version(jsi::Runtime &rt,
+                                         TurboModule &turboModule,
+                                         const jsi::Value *args, size_t count) {
   return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->version(rt);
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_config(
+    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
+    size_t count) {
+  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
+      ->set_config(rt, args[0].getObject(rt));
+  return jsi::Value::undefined();
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_default_logger(
+    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
+    size_t count) {
+  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->set_default_logger(rt);
+  return jsi::Value::undefined();
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_protocol_version(
+    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
+    size_t count) {
+  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
+      ->set_protocol_version(rt, args[0].getObject(rt));
+  return jsi::Value::undefined();
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_socks_proxy(
+    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
+    size_t count) {
+  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
+      ->set_socks_proxy(rt, args[0].getObject(rt));
+  return jsi::Value::undefined();
+}
+static jsi::Value
+__hostFunction_IndyVdrCxxSpecJSI_build_acceptance_mechanisms_request(
+    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
+    size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
+      ->build_acceptance_mechanisms_request(rt, args[0].getObject(rt));
+}
+static jsi::Value
+__hostFunction_IndyVdrCxxSpecJSI_build_get_acceptance_mechanisms_request(
+    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
+    size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
+      ->build_get_acceptance_mechanisms_request(rt, args[0].getObject(rt));
 }
 
 IndyVdrCxxSpecJSI::IndyVdrCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker)
-  : TurboModule("IndyVdr", jsInvoker) {
-  methodMap_["set_config"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_set_config};
-  methodMap_["version"] = MethodMetadata {0, __hostFunction_IndyVdrCxxSpecJSI_version};
+    : TurboModule("IndyVdr", jsInvoker) {
+  methodMap_["version"] =
+      MethodMetadata{0, __hostFunction_IndyVdrCxxSpecJSI_version};
+  methodMap_["set_config"] =
+      MethodMetadata{1, __hostFunction_IndyVdrCxxSpecJSI_set_config};
+  methodMap_["set_default_logger"] =
+      MethodMetadata{0, __hostFunction_IndyVdrCxxSpecJSI_set_default_logger};
+  methodMap_["set_protocol_version"] =
+      MethodMetadata{1, __hostFunction_IndyVdrCxxSpecJSI_set_protocol_version};
+  methodMap_["set_socks_proxy"] =
+      MethodMetadata{1, __hostFunction_IndyVdrCxxSpecJSI_set_socks_proxy};
+  methodMap_["build_acceptance_mechanisms_request"] = MethodMetadata{
+      1, __hostFunction_IndyVdrCxxSpecJSI_build_acceptance_mechanisms_request};
+  methodMap_["build_get_acceptance_mechanisms_request"] = MethodMetadata{
+      1,
+      __hostFunction_IndyVdrCxxSpecJSI_build_get_acceptance_mechanisms_request};
 }
-
 
 } // namespace react
 } // namespace facebook

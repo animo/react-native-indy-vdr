@@ -9,6 +9,7 @@
 #import <memory>
 
 using namespace facebook;
+using namespace react;
 
 @implementation IndyVdr 
 
@@ -50,7 +51,7 @@ RCT_EXPORT_MODULE()
     auto callInvoker = _bridge.jsCallInvoker;
     
     // installs the turbomodule
-    utils::installTurboModule(*jsiRuntime, callInvoker);
+    TurboModuleUtils::installTurboModule(*jsiRuntime, callInvoker);
 }
 
 @end
