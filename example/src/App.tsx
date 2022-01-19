@@ -14,25 +14,36 @@ export default function App() {
   const [handle, setHandle] = React.useState(indyVdr.getHandle);
   const functions: Func[] = [
     { version: () => indyVdr.version() },
-    { set_protocol_version: () => indyVdr.setProtocolVersion(2) },
-    { set_config: () => indyVdr.setConfig("{'a': 'b'}") },
+    { set_protocol_version: () => indyVdr.setProtocolVersion({ version: 2 }) },
+    { set_config: () => indyVdr.setConfig({ config: { test: 'test' } }) },
     { set_default_logger: () => indyVdr.setDefaultLogger() },
-    { set_socks_proxy: () => indyVdr.setSocksProxy('abc') },
+    { set_socks_proxy: () => indyVdr.setSocksProxy({ socksProxy: 'abc' }) },
     {
       build_acceptance_mechanisms_request: () =>
-        indyVdr.buildAcceptanceMechanismsRequest(
-          'GShBXJZJ2oZvKoTQqceiMC',
-          { key: 'ja' },
-          '1.0.0'
-          //'a'
-        ),
+        indyVdr.buildAcceptanceMechanismsRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          aml: { key: 'ja' },
+          version: '1.0.0',
+          amlContext: 'a',
+        }),
     },
     {
       build_get_acceptance_mechanisms_request: () =>
-        indyVdr.buildGetAcceptanceMechanismsRequest(
-          new Date(),
-          'GShBXJZJ2oZvKoTQqceiMC'
-        ),
+        indyVdr.buildGetAcceptanceMechanismsRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          //version: '1.0.0',
+          timestamp: new Date(),
+        }),
+    },
+    {
+      build_attrib_request: () =>
+        indyVdr.buildAttribRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          targetDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          enc: 'a',
+          raw: { b: 'c' },
+          hash: 'd',
+        }),
     },
   ];
 

@@ -12,72 +12,195 @@
 namespace facebook {
 namespace react {
 
-static jsi::Value
-__hostFunction_IndyVdrCxxSpecJSI_version(jsi::Runtime &rt,
-                                         TurboModule &turboModule,
-                                         const jsi::Value *args, size_t count) {
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_version(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
   return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->version(rt);
 }
-static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_config(
-    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
-    size_t count) {
-  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
-      ->set_config(rt, args[0].getObject(rt));
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_config(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->set_config(rt, args[0].getObject(rt));
   return jsi::Value::undefined();
 }
-static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_default_logger(
-    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
-    size_t count) {
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_default_logger(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
   static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->set_default_logger(rt);
   return jsi::Value::undefined();
 }
-static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_protocol_version(
-    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
-    size_t count) {
-  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
-      ->set_protocol_version(rt, args[0].getObject(rt));
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_protocol_version(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->set_protocol_version(rt, args[0].getObject(rt));
   return jsi::Value::undefined();
 }
-static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_socks_proxy(
-    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
-    size_t count) {
-  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
-      ->set_socks_proxy(rt, args[0].getObject(rt));
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_socks_proxy(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->set_socks_proxy(rt, args[0].getObject(rt));
   return jsi::Value::undefined();
 }
-static jsi::Value
-__hostFunction_IndyVdrCxxSpecJSI_build_acceptance_mechanisms_request(
-    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
-    size_t count) {
-  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
-      ->build_acceptance_mechanisms_request(rt, args[0].getObject(rt));
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_acceptance_mechanisms_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_acceptance_mechanisms_request(rt, args[0].getObject(rt));
 }
-static jsi::Value
-__hostFunction_IndyVdrCxxSpecJSI_build_get_acceptance_mechanisms_request(
-    jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value *args,
-    size_t count) {
-  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)
-      ->build_get_acceptance_mechanisms_request(rt, args[0].getObject(rt));
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_acceptance_mechanisms_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_acceptance_mechanisms_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_attrib_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_attrib_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_attrib_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_attrib_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_cred_def_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_cred_def_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_cred_def_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_cred_def_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_revoc_reg_def_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_revoc_reg_def_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_revoc_reg_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_revoc_reg_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_revoc_reg_delta_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_revoc_reg_delta_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_revoc_reg_def_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_revoc_reg_def_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_custom_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_custom_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_disable_all_txn_author_agreements_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_disable_all_txn_author_agreements_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_nym_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_nym_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_schema_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_schema_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_txn_author_agreement_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_txn_author_agreement_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_txn_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_txn_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_validator_info_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_validator_info_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_nym_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_nym_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_revoc_reg_entry_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_revoc_reg_entry_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_schema_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_schema_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_txn_author_agreement_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_txn_author_agreement_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_rich_schema_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_rich_schema_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_rich_schema_object_by_id_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_rich_schema_object_by_id_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_build_get_rich_schema_object_by_metadata_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->build_get_rich_schema_object_by_metadata_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_pool_create(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->pool_create(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_pool_refresh(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->pool_refresh(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_pool_get_status(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->pool_get_status(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_pool_get_transactions(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->pool_get_transactions(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_pool_get_verifiers(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->pool_get_verifiers(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_pool_submit_action(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->pool_submit_action(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_pool_submit_request(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->pool_submit_request(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_pool_close(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->pool_close(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_prepare_txn_author_agreement_acceptance(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->prepare_txn_author_agreement_acceptance(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_request_free(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->request_free(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_request_get_body(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->request_get_body(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_request_get_signature_input(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->request_get_signature_input(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_request_set_endorser(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->request_set_endorser(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_request_set_multi_signature(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->request_set_multi_signature(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_request_set_signature(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->request_set_signature(rt, args[0].getObject(rt));
+}
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_request_set_txn_author_agreement_acceptance(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->request_set_txn_author_agreement_acceptance(rt, args[0].getObject(rt));
 }
 
 IndyVdrCxxSpecJSI::IndyVdrCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker)
-    : TurboModule("IndyVdr", jsInvoker) {
-  methodMap_["version"] =
-      MethodMetadata{0, __hostFunction_IndyVdrCxxSpecJSI_version};
-  methodMap_["set_config"] =
-      MethodMetadata{1, __hostFunction_IndyVdrCxxSpecJSI_set_config};
-  methodMap_["set_default_logger"] =
-      MethodMetadata{0, __hostFunction_IndyVdrCxxSpecJSI_set_default_logger};
-  methodMap_["set_protocol_version"] =
-      MethodMetadata{1, __hostFunction_IndyVdrCxxSpecJSI_set_protocol_version};
-  methodMap_["set_socks_proxy"] =
-      MethodMetadata{1, __hostFunction_IndyVdrCxxSpecJSI_set_socks_proxy};
-  methodMap_["build_acceptance_mechanisms_request"] = MethodMetadata{
-      1, __hostFunction_IndyVdrCxxSpecJSI_build_acceptance_mechanisms_request};
-  methodMap_["build_get_acceptance_mechanisms_request"] = MethodMetadata{
-      1,
-      __hostFunction_IndyVdrCxxSpecJSI_build_get_acceptance_mechanisms_request};
+  : TurboModule("IndyVdr", jsInvoker) {
+  methodMap_["version"] = MethodMetadata {0, __hostFunction_IndyVdrCxxSpecJSI_version};
+  methodMap_["set_config"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_set_config};
+  methodMap_["set_default_logger"] = MethodMetadata {0, __hostFunction_IndyVdrCxxSpecJSI_set_default_logger};
+  methodMap_["set_protocol_version"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_set_protocol_version};
+  methodMap_["set_socks_proxy"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_set_socks_proxy};
+  methodMap_["build_acceptance_mechanisms_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_acceptance_mechanisms_request};
+  methodMap_["build_get_acceptance_mechanisms_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_acceptance_mechanisms_request};
+  methodMap_["build_attrib_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_attrib_request};
+  methodMap_["build_get_attrib_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_attrib_request};
+  methodMap_["build_cred_def_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_cred_def_request};
+  methodMap_["build_get_cred_def_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_cred_def_request};
+  methodMap_["build_get_revoc_reg_def_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_revoc_reg_def_request};
+  methodMap_["build_get_revoc_reg_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_revoc_reg_request};
+  methodMap_["build_get_revoc_reg_delta_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_revoc_reg_delta_request};
+  methodMap_["build_revoc_reg_def_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_revoc_reg_def_request};
+  methodMap_["build_custom_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_custom_request};
+  methodMap_["build_disable_all_txn_author_agreements_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_disable_all_txn_author_agreements_request};
+  methodMap_["build_get_nym_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_nym_request};
+  methodMap_["build_get_schema_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_schema_request};
+  methodMap_["build_get_txn_author_agreement_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_txn_author_agreement_request};
+  methodMap_["build_get_txn_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_txn_request};
+  methodMap_["build_get_validator_info_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_validator_info_request};
+  methodMap_["build_nym_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_nym_request};
+  methodMap_["build_revoc_reg_entry_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_revoc_reg_entry_request};
+  methodMap_["build_schema_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_schema_request};
+  methodMap_["build_txn_author_agreement_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_txn_author_agreement_request};
+  methodMap_["build_rich_schema_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_rich_schema_request};
+  methodMap_["build_get_rich_schema_object_by_id_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_rich_schema_object_by_id_request};
+  methodMap_["build_get_rich_schema_object_by_metadata_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_build_get_rich_schema_object_by_metadata_request};
+  methodMap_["pool_create"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_pool_create};
+  methodMap_["pool_refresh"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_pool_refresh};
+  methodMap_["pool_get_status"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_pool_get_status};
+  methodMap_["pool_get_transactions"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_pool_get_transactions};
+  methodMap_["pool_get_verifiers"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_pool_get_verifiers};
+  methodMap_["pool_submit_action"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_pool_submit_action};
+  methodMap_["pool_submit_request"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_pool_submit_request};
+  methodMap_["pool_close"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_pool_close};
+  methodMap_["prepare_txn_author_agreement_acceptance"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_prepare_txn_author_agreement_acceptance};
+  methodMap_["request_free"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_request_free};
+  methodMap_["request_get_body"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_request_get_body};
+  methodMap_["request_get_signature_input"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_request_get_signature_input};
+  methodMap_["request_set_endorser"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_request_set_endorser};
+  methodMap_["request_set_multi_signature"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_request_set_multi_signature};
+  methodMap_["request_set_signature"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_request_set_signature};
+  methodMap_["request_set_txn_author_agreement_acceptance"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_request_set_txn_author_agreement_acceptance};
 }
+
 
 } // namespace react
 } // namespace facebook
