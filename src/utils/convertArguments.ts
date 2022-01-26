@@ -10,12 +10,12 @@ type Argument =
   | Callback
   | CallbackWithResponse;
 
-type SerializedArgument = Record<
+type SerializedArguments = Record<
   string,
   string | number | Callback | CallbackWithResponse
 >;
 
-export type SerializedArguments<Type> = {
+export type SerializedArgument<Type> = {
   [Property in keyof Type]: Type[Property] extends string
     ? string
     : Type[Property] extends number
@@ -44,17 +44,27 @@ export type SerializedArguments<Type> = {
 // number -> number
 // string -> string
 const serializeArguments = (args: Record<string, Argument>) => {
-  Object.entries(args).forEach(([key, val]) => {
-    if (typeof val === 'object') {
-      if (typeof val.getDay === 'function') {
-        return { [key]: val.valueOf() };
-      }
-      return { [key]: JSON.stringify(val) };
-    }
-    return { [key]: val };
-  });
-
-  return args as SerializedArgument;
+  const retVal: SerializedArguments = {};
+  Object.entries(args).map(([key, val]) => (retVal[key] = serialize(val)));
+  return retVal;
 };
+
+const serialize = (arg: Argument): string | number => {
+  switch (typeof arg) {
+    case 'string':
+      return arg;
+    case 'number':
+      return arg;
+    case 'object':
+      return isDate(arg)
+        ? (arg.valueOf() as number)
+        : (JSON.stringify(arg) as string);
+    default:
+      throw new Error('could not serialize value');
+  }
+};
+
+const isDate = <T extends Date | Record<string, unknown>>(arg: T) =>
+  typeof arg.getDay === 'function';
 
 export { serializeArguments };
