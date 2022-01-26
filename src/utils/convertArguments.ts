@@ -10,6 +10,8 @@ type Argument =
   | Callback
   | CallbackWithResponse;
 
+type SerializedArgument = string | number | Callback | CallbackWithResponse;
+
 type SerializedArguments = Record<
   string,
   string | number | Callback | CallbackWithResponse
@@ -45,11 +47,13 @@ const serializeArguments = (args: Record<string, Argument>) => {
   return retVal;
 };
 
-const serialize = (arg: Argument): string | number => {
+const serialize = (arg: Argument): SerializedArgument => {
   switch (typeof arg) {
     case 'string':
       return arg;
     case 'number':
+      return arg;
+    case 'function':
       return arg;
     case 'object':
       return isDate(arg)
