@@ -15,7 +15,7 @@ type SerializedArguments = Record<
   string | number | Callback | CallbackWithResponse
 >;
 
-export type SerializedArgument<Type> = {
+export type SerializedOptions<Type> = {
   [Property in keyof Type]: Type[Property] extends string
     ? string
     : Type[Property] extends number
@@ -39,10 +39,6 @@ export type SerializedArgument<Type> = {
     : unknown;
 };
 
-// Date -> number
-// Object -> string
-// number -> number
-// string -> string
 const serializeArguments = (args: Record<string, Argument>) => {
   const retVal: SerializedArguments = {};
   Object.entries(args).map(([key, val]) => (retVal[key] = serialize(val)));

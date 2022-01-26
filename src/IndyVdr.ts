@@ -5,7 +5,7 @@ import type {
 } from './IIndyVdr';
 import {
   serializeArguments,
-  SerializedArgument,
+  SerializedOptions,
 } from './utils/convertArguments';
 
 declare var _indy_vdr: IndyVdrNativeBindings;
@@ -31,7 +31,7 @@ class IndyVdr {
   }
 
   public setConfig(options: { config: Record<string, unknown> }) {
-    const { config } = serializeArguments(options) as SerializedArgument<
+    const { config } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -45,7 +45,7 @@ class IndyVdr {
 
   // TODO: indyvdr allows any u64 number to be a protocol version. Is this correct?
   public setProtocolVersion(options: { version: number }) {
-    const { version } = serializeArguments(options) as SerializedArgument<
+    const { version } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -53,7 +53,7 @@ class IndyVdr {
   }
 
   public setSocksProxy(options: { socksProxy: string }) {
-    const { socksProxy } = serializeArguments(options) as SerializedArgument<
+    const { socksProxy } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -69,7 +69,7 @@ class IndyVdr {
   }) {
     const { version, aml, submitterDid, amlContext } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_acceptance_mechanisms_request({
       submitter_did: submitterDid,
@@ -88,7 +88,7 @@ class IndyVdr {
   }) {
     const { version, timestamp, submitterDid } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_acceptance_mechanisms_request({
       submitter_did: submitterDid,
@@ -107,7 +107,7 @@ class IndyVdr {
   }) {
     const { submitterDid, targetDid, hash, raw, enc } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_attrib_request({
       submitter_did: submitterDid,
@@ -128,7 +128,7 @@ class IndyVdr {
   }) {
     const { submitterDid, targetDid, hash, raw, enc } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_attrib_request({
       submitter_did: submitterDid,
@@ -146,7 +146,7 @@ class IndyVdr {
   }) {
     const { credDef, submitterDid } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_cred_def_request({
       submitter_did: submitterDid,
@@ -161,7 +161,7 @@ class IndyVdr {
   }) {
     const { submittedDid, credDefId } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_cred_def_request({
       submitter_did: submittedDid,
@@ -175,7 +175,7 @@ class IndyVdr {
   }) {
     const { revocRegId, submittedDid } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_revoc_reg_def_request({
       submitter_did: submittedDid,
@@ -191,7 +191,7 @@ class IndyVdr {
   }) {
     const { submittedDid, timestamp, revocRegId } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_revoc_reg_request({
       submitter_did: submittedDid,
@@ -209,7 +209,7 @@ class IndyVdr {
   }) {
     const { submittedDid, revocRegId, fromTs, toTs } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_revoc_reg_delta_request({
       submitter_did: submittedDid,
@@ -226,7 +226,7 @@ class IndyVdr {
   }) {
     const { submitterDid, revocRegId } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_revoc_reg_def_request({
       submitter_did: submitterDid,
@@ -236,7 +236,7 @@ class IndyVdr {
   }
 
   public buildCustomRequest(options: { requestJson: Record<string, unknown> }) {
-    const { requestJson } = serializeArguments(options) as SerializedArgument<
+    const { requestJson } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -249,7 +249,7 @@ class IndyVdr {
   public buildDisableAllTxnAuthorAgreementsRequest(options: {
     submitterDid: string;
   }) {
-    const { submitterDid } = serializeArguments(options) as SerializedArgument<
+    const { submitterDid } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -264,7 +264,7 @@ class IndyVdr {
   public buildGetNymRequest(options: { submitterDid?: string; dest: string }) {
     const { submitterDid, dest } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_nym_request({
       submitter_did: submitterDid,
@@ -279,7 +279,7 @@ class IndyVdr {
   }) {
     const { submitterDid, schemaId } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_schema_request({
       submitter_did: submitterDid,
@@ -294,7 +294,7 @@ class IndyVdr {
   }) {
     const { submitterDid, data } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_txn_author_agreement_request({
       submitter_did: submitterDid,
@@ -310,7 +310,7 @@ class IndyVdr {
   }) {
     const { submitterDid, seqNo, ledgerType } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_txn_request({
       submitter_did: submitterDid,
@@ -324,7 +324,7 @@ class IndyVdr {
     submitterDid: string;
     seqNo: number;
   }) {
-    const { submitterDid } = serializeArguments(options) as SerializedArgument<
+    const { submitterDid } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -343,7 +343,7 @@ class IndyVdr {
   }) {
     const { submitterDid, dest, role, alias, verkey } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_nym_request({
       submitter_did: submitterDid,
@@ -362,7 +362,7 @@ class IndyVdr {
     revocRegEntry: string;
   }) {
     const { submitterDid, revocRegEntry, revocRegDefType, revocRegDefId } =
-      serializeArguments(options) as SerializedArgument<typeof options>;
+      serializeArguments(options) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_revoc_reg_entry_request({
       submitter_did: submitterDid,
@@ -379,7 +379,7 @@ class IndyVdr {
   }) {
     const { submitterDid, schema } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     console.log(typeof schema);
 
@@ -398,7 +398,7 @@ class IndyVdr {
     retirementTs?: number;
   }) {
     const { submitterDid, version, text, retirementTs, ratificationTs } =
-      serializeArguments(options) as SerializedArgument<typeof options>;
+      serializeArguments(options) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_txn_author_agreement_request({
       submitter_did: submitterDid,
@@ -420,7 +420,7 @@ class IndyVdr {
     ver: string;
   }) {
     const { submitterDid, ver, rsType, rsVersion, rsName, rsContent, rsId } =
-      serializeArguments(options) as SerializedArgument<typeof options>;
+      serializeArguments(options) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_rich_schema_request({
       submitter_did: submitterDid,
@@ -440,7 +440,7 @@ class IndyVdr {
   }) {
     const { submitterDid, rsId } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_rich_schema_object_by_id_request({
       submitter_did: submitterDid,
@@ -457,7 +457,7 @@ class IndyVdr {
   }) {
     const { submitterDid, rsVersion, rsName, rsType } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle =
       NativeIndyVdr.build_get_rich_schema_object_by_metadata_request({
@@ -472,7 +472,7 @@ class IndyVdr {
   // TODO: params from the serializedArguments does not seem to be serialized.
   //       how is this going wrong?
   public poolCreate(options: { params: Record<string, unknown> }) {
-    const { params } = serializeArguments(options) as SerializedArgument<
+    const { params } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -483,7 +483,7 @@ class IndyVdr {
   }
 
   public poolRefresh(options: { cb: Callback }) {
-    const { cb } = serializeArguments(options) as SerializedArgument<
+    const { cb } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -494,7 +494,7 @@ class IndyVdr {
   }
 
   public poolGetStatus(options: { cb: CallbackWithResponse }) {
-    const { cb } = serializeArguments(options) as SerializedArgument<
+    const { cb } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -505,7 +505,7 @@ class IndyVdr {
   }
 
   public poolGetTransactions(options: { cb: CallbackWithResponse }) {
-    const { cb } = serializeArguments(options) as SerializedArgument<
+    const { cb } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -516,7 +516,7 @@ class IndyVdr {
   }
 
   public poolGetVerfiers(options: { cb: CallbackWithResponse }) {
-    const { cb } = serializeArguments(options) as SerializedArgument<
+    const { cb } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -533,7 +533,7 @@ class IndyVdr {
   }) {
     const { cb, nodes, timeout } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.poolHandle = NativeIndyVdr.pool_submit_action({
       pool_handle: this.poolHandle,
@@ -560,7 +560,7 @@ class IndyVdr {
     outputP: string;
   }) {
     const { outputP, time, accMechType, text, version, taaDigest } =
-      serializeArguments(options) as SerializedArgument<typeof options>;
+      serializeArguments(options) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.prepare_txn_author_agreement_acceptance({
       time,
@@ -581,7 +581,7 @@ class IndyVdr {
 
   // TODO: check body
   public requestGetBody(options: { bodyP: string }) {
-    const { bodyP } = serializeArguments(options) as SerializedArgument<
+    const { bodyP } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -592,7 +592,7 @@ class IndyVdr {
   }
 
   public requestGetSignatureInput(options: { inputP: string }) {
-    const { inputP } = serializeArguments(options) as SerializedArgument<
+    const { inputP } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -603,7 +603,7 @@ class IndyVdr {
   }
 
   public requestSetEndorser(options: { endorser: string }) {
-    const { endorser } = serializeArguments(options) as SerializedArgument<
+    const { endorser } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
@@ -620,7 +620,7 @@ class IndyVdr {
   }) {
     const { signature, signatureLen, identifier } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.request_set_multi_signature({
       request_handle: this.handle,
@@ -637,7 +637,7 @@ class IndyVdr {
   }) {
     const { signature, signatureLen } = serializeArguments(
       options
-    ) as SerializedArgument<typeof options>;
+    ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.request_set_signature({
       request_handle: this.handle,
@@ -649,7 +649,7 @@ class IndyVdr {
   public requestSetTxnAuthorAgreementAcceptance(options: {
     acceptance: string;
   }) {
-    const { acceptance } = serializeArguments(options) as SerializedArgument<
+    const { acceptance } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
