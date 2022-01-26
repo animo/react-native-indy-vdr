@@ -14,10 +14,16 @@ const NativeIndyVdr = _indy_vdr as IndyVdrNativeBindings;
 // TODO: proper documentation
 class IndyVdr {
   // TODO: how do we generate a handle
+  //       how many handles do we need?
   private handle: number = 0;
+  private poolHandle: number = 0;
 
   get getHandle() {
     return this.handle;
+  }
+
+  get getPoolHandle() {
+    return this.poolHandle;
   }
 
   public version() {
@@ -367,14 +373,17 @@ class IndyVdr {
     });
   }
 
-  public buildSchemaRequest(options: { submitterDid: string; schema: string }) {
+  public buildSchemaRequest(options: {
+    submitterDid: string;
+    schema: Record<string, unknown>;
+  }) {
     const { submitterDid, schema } = serializeArguments(
       options
     ) as SerializedArguments<typeof options>;
 
     this.handle = NativeIndyVdr.build_schema_request({
       submitter_did: submitterDid,
-      schema,
+      schema: JSON.stringify(schema),
       handle_p: this.handle,
     });
   }
@@ -458,113 +467,84 @@ class IndyVdr {
       });
   }
 
+  // TODO: params from the serializedArguments does not seem to be serialized.
+  //       how is this going wrong?
   public poolCreate(options: { params: Record<string, unknown> }) {
     const { params } = serializeArguments(options) as SerializedArguments<
       typeof options
     >;
 
-    console.log(typeof params);
-
-    this.handle = NativeIndyVdr.pool_create({
+    this.poolHandle = NativeIndyVdr.pool_create({
       params: JSON.stringify(params),
-      handle_p: this.handle,
+      handle_p: this.poolHandle,
     });
   }
 
-  // TODO: callback needs mapped typing
-  //       is poolhandle like handle_p?
-  public poolRefresh(options: {
-    poolHandle: number;
-    cb?: Callback;
-    cbId: number;
-  }) {
-    const { cb, cbId } = serializeArguments(options) as SerializedArguments<
+  public poolRefresh(options: { cb: Callback }) {
+    const { cb } = serializeArguments(options) as SerializedArguments<
       typeof options
     >;
 
-    this.handle = NativeIndyVdr.pool_refresh({
-      cb_id: cbId,
-      pool_handle: this.handle,
+    this.poolHandle = NativeIndyVdr.pool_refresh({
+      pool_handle: this.poolHandle,
       cb,
     });
   }
 
-  public poolGetStatus(options: {
-    poolHandle: number;
-    cb?: CallbackWithResponse;
-    cbId: number;
-  }) {
-    const { poolHandle, cb, cbId } = serializeArguments(
-      options
-    ) as SerializedArguments<typeof options>;
+  public poolGetStatus(options: { cb: CallbackWithResponse }) {
+    const { cb } = serializeArguments(options) as SerializedArguments<
+      typeof options
+    >;
 
-    this.handle = NativeIndyVdr.pool_get_status({
-      cb_id: cbId,
-      pool_handle: poolHandle,
+    this.poolHandle = NativeIndyVdr.pool_get_status({
+      pool_handle: this.poolHandle,
       cb,
     });
   }
 
-  public poolGetTransactions(options: {
-    poolHandle: number;
-    cb?: CallbackWithResponse;
-    cbId: number;
-  }) {
-    const { poolHandle, cb, cbId } = serializeArguments(
-      options
-    ) as SerializedArguments<typeof options>;
+  public poolGetTransactions(options: { cb: CallbackWithResponse }) {
+    const { cb } = serializeArguments(options) as SerializedArguments<
+      typeof options
+    >;
 
-    this.handle = NativeIndyVdr.pool_get_transactions({
-      cb_id: cbId,
-      pool_handle: poolHandle,
+    this.poolHandle = NativeIndyVdr.pool_get_transactions({
+      pool_handle: this.poolHandle,
       cb,
     });
   }
 
-  public poolGetVerfiers(options: {
-    poolHandle: number;
-    cb?: CallbackWithResponse;
-    cbId: number;
-  }) {
-    const { poolHandle, cb, cbId } = serializeArguments(
-      options
-    ) as SerializedArguments<typeof options>;
+  public poolGetVerfiers(options: { cb: CallbackWithResponse }) {
+    const { cb } = serializeArguments(options) as SerializedArguments<
+      typeof options
+    >;
 
-    this.handle = NativeIndyVdr.pool_get_verifiers({
-      cb_id: cbId,
-      pool_handle: poolHandle,
+    this.poolHandle = NativeIndyVdr.pool_get_verifiers({
+      pool_handle: this.poolHandle,
       cb,
     });
   }
 
   public poolSubmitAction(options: {
-    poolHandle: number;
-    requestHandle: number;
     nodes?: string;
     timeout?: number;
-    cb?: CallbackWithResponse;
-    cbId: number;
+    cb: CallbackWithResponse;
   }) {
-    const { poolHandle, cb, cbId, requestHandle, nodes, timeout } =
-      serializeArguments(options) as SerializedArguments<typeof options>;
+    const { cb, nodes, timeout } = serializeArguments(
+      options
+    ) as SerializedArguments<typeof options>;
 
-    this.handle = NativeIndyVdr.pool_submit_action({
-      cb_id: cbId,
-      pool_handle: poolHandle,
-      request_handle: requestHandle,
+    this.poolHandle = NativeIndyVdr.pool_submit_action({
+      pool_handle: this.poolHandle,
+      request_handle: this.handle,
       nodes,
       timeout,
       cb,
     });
   }
 
-  public poolClose(options: { poolHandle: number }) {
-    const { poolHandle } = serializeArguments(options) as SerializedArguments<
-      typeof options
-    >;
-
-    this.handle = NativeIndyVdr.pool_close({
-      pool_handle: poolHandle,
+  public poolClose() {
+    this.poolHandle = NativeIndyVdr.pool_close({
+      pool_handle: this.poolHandle,
     });
   }
 
@@ -591,65 +571,57 @@ class IndyVdr {
   }
 
   // TODO: check requesthandle
-  public requestFree(options: { requestHandle: number }) {
-    const { requestHandle } = serializeArguments(
-      options
-    ) as SerializedArguments<typeof options>;
-
-    this.handle = NativeIndyVdr.request_free({ request_handle: requestHandle });
+  public requestFree() {
+    this.handle = NativeIndyVdr.request_free({
+      request_handle: this.handle,
+    });
   }
 
   // TODO: check body
-  public requestGetBody(options: { requestHandle: number; bodyP: string }) {
-    const { requestHandle, bodyP } = serializeArguments(
-      options
-    ) as SerializedArguments<typeof options>;
+  public requestGetBody(options: { bodyP: string }) {
+    const { bodyP } = serializeArguments(options) as SerializedArguments<
+      typeof options
+    >;
 
     this.handle = NativeIndyVdr.request_get_body({
-      request_handle: requestHandle,
+      request_handle: this.handle,
       body_p: bodyP,
     });
   }
 
-  public requestGetSignatureInput(options: {
-    requestHandle: number;
-    inputP: string;
-  }) {
-    const { requestHandle, inputP } = serializeArguments(
-      options
-    ) as SerializedArguments<typeof options>;
+  public requestGetSignatureInput(options: { inputP: string }) {
+    const { inputP } = serializeArguments(options) as SerializedArguments<
+      typeof options
+    >;
 
     this.handle = NativeIndyVdr.request_get_signature_input({
-      request_handle: requestHandle,
+      request_handle: this.handle,
       input_p: inputP,
     });
   }
 
-  public requestSetEndorser(options: {
-    requestHandle: number;
-    endorser: string;
-  }) {
-    const { requestHandle, endorser } = serializeArguments(
-      options
-    ) as SerializedArguments<typeof options>;
+  public requestSetEndorser(options: { endorser: string }) {
+    const { endorser } = serializeArguments(options) as SerializedArguments<
+      typeof options
+    >;
 
     this.handle = NativeIndyVdr.request_set_endorser({
-      request_handle: requestHandle,
+      request_handle: this.handle,
       endorser,
     });
   }
 
   public requestSetMultiSignature(options: {
-    requestHandle: number;
     identifier: string;
     signature: string;
     signatureLen: number;
   }) {
-    const { requestHandle, signature, signatureLen, identifier } =
-      serializeArguments(options) as SerializedArguments<typeof options>;
+    const { signature, signatureLen, identifier } = serializeArguments(
+      options
+    ) as SerializedArguments<typeof options>;
 
     this.handle = NativeIndyVdr.request_set_multi_signature({
-      request_handle: requestHandle,
+      request_handle: this.handle,
       identifier,
       signature,
       signature_len: signatureLen,
@@ -658,31 +630,29 @@ class IndyVdr {
 
   // TODO: why is the sig a number here
   public requestSetSignature(options: {
-    requestHandle: number;
     signature: number;
     signatureLen: number;
   }) {
-    const { requestHandle, signature, signatureLen } = serializeArguments(
+    const { signature, signatureLen } = serializeArguments(
       options
     ) as SerializedArguments<typeof options>;
 
     this.handle = NativeIndyVdr.request_set_signature({
-      request_handle: requestHandle,
+      request_handle: this.handle,
       signature,
       signature_len: signatureLen,
     });
   }
 
   public requestSetTxnAuthorAgreementAcceptance(options: {
-    requestHandle: number;
     acceptance: string;
   }) {
-    const { requestHandle, acceptance } = serializeArguments(
-      options
-    ) as SerializedArguments<typeof options>;
+    const { acceptance } = serializeArguments(options) as SerializedArguments<
+      typeof options
+    >;
 
     this.handle = NativeIndyVdr.request_set_txn_author_agreement_acceptance({
-      request_handle: requestHandle,
+      request_handle: this.handle,
       acceptance,
     });
   }

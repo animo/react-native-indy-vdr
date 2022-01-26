@@ -32,10 +32,10 @@ export type SerializedArguments<Type> = {
     ? undefined | string
     : Type[Property] extends number | undefined
     ? undefined | number
-    : Type[Property] extends Callback | undefined
-    ? undefined | Callback
-    : Type[Property] extends CallbackWithResponse | undefined
-    ? undefined | CallbackWithResponse
+    : Type[Property] extends Callback
+    ? Callback
+    : Type[Property] extends CallbackWithResponse
+    ? CallbackWithResponse
     : unknown;
 };
 
@@ -49,7 +49,6 @@ const serializeArguments = (args: Record<string, Argument>) => {
       if (typeof val.getDay === 'function') {
         return { [key]: val.valueOf() };
       }
-      console.log('OBJ');
       return { [key]: JSON.stringify(val) };
     }
     return { [key]: val };

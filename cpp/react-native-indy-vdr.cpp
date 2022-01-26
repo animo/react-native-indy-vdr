@@ -11,28 +11,28 @@ jsi::String IndyVdrCxx::version(jsi::Runtime &rt) {
 
 void IndyVdrCxx::set_default_logger(jsi::Runtime &rt) {
     ErrorCode code = indy_vdr_set_default_logger();
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
 };
 
 void IndyVdrCxx::set_config(jsi::Runtime &rt, const jsi::Object &options) {
     std::string config = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "config"));
 
     ErrorCode code = indy_vdr_set_config(config.c_str());
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
 };
 
 void IndyVdrCxx::set_protocol_version(jsi::Runtime &rt, const jsi::Object &options) {
     int64_t version = TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "version"));
 
     ErrorCode code = indy_vdr_set_protocol_version(version);
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
 };
 
 void IndyVdrCxx::set_socks_proxy(jsi::Runtime &rt, const jsi::Object &options) {
     std::string socks_proxy = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "socks_proxy"));
 
     ErrorCode code = indy_vdr_set_socks_proxy(socks_proxy.c_str());
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
 };
 
 double IndyVdrCxx::build_acceptance_mechanisms_request(jsi::Runtime &rt, const jsi::Object &options) {
@@ -48,7 +48,7 @@ double IndyVdrCxx::build_acceptance_mechanisms_request(jsi::Runtime &rt, const j
                                                                     aml_context.length() ? aml_context.c_str() : nullptr,
                                                                     &handle);
 
-      TurboModuleUtils::handle_error(rt, code);
+      TurboModuleUtils::handleError(rt, code);
       return handle;
 };
 
@@ -63,7 +63,7 @@ double IndyVdrCxx::build_get_acceptance_mechanisms_request(jsi::Runtime &rt, con
                                                                       version.length() > 0 ? version.c_str() : nullptr,
                                                                       &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     
     return handle;
 };
@@ -83,7 +83,7 @@ double IndyVdrCxx::build_attrib_request(jsi::Runtime &rt, const jsi::Object &opt
                                                    enc.length()  > 0 ? enc.c_str() : nullptr,
                                                    &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     
     return handle;
 }
@@ -103,7 +103,7 @@ double IndyVdrCxx::build_get_attrib_request(jsi::Runtime &rt, const jsi::Object 
                                                        enc.length()  > 0 ? enc.c_str() : nullptr,
                                                        &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
 
     return handle;
 };
@@ -117,7 +117,7 @@ double IndyVdrCxx::build_cred_def_request(jsi::Runtime &rt, const jsi::Object &o
                                                      cred_def.c_str(),
                                                      &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -130,7 +130,7 @@ double IndyVdrCxx::build_get_cred_def_request(jsi::Runtime &rt, const jsi::Objec
                                                      cred_def_id.c_str(),
                                                      &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -143,7 +143,7 @@ double IndyVdrCxx::build_get_revoc_reg_def_request(jsi::Runtime &rt, const jsi::
                                                           revoc_reg_id.c_str(),
                                                           &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -158,7 +158,7 @@ double IndyVdrCxx::build_get_revoc_reg_request(jsi::Runtime &rt, const jsi::Obje
                                                           timestamp,
                                                           &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -175,7 +175,7 @@ double IndyVdrCxx::build_get_revoc_reg_delta_request(jsi::Runtime &rt, const jsi
                                                           to_ts,
                                                           &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -188,7 +188,7 @@ double IndyVdrCxx::build_revoc_reg_def_request(jsi::Runtime &rt, const jsi::Obje
                                                           revoc_reg_id.c_str(),
                                                           &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -199,7 +199,7 @@ double IndyVdrCxx::build_custom_request(jsi::Runtime &rt, const jsi::Object &opt
     ErrorCode code = indy_vdr_build_custom_request(request_json.c_str(),
                                                    &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -210,7 +210,7 @@ double IndyVdrCxx::build_disable_all_txn_author_agreements_request(jsi::Runtime 
     ErrorCode code = indy_vdr_build_disable_all_txn_author_agreements_request(submitter_did.c_str(),
                                                                               &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -223,7 +223,7 @@ double IndyVdrCxx::build_get_nym_request(jsi::Runtime &rt, const jsi::Object &op
                                                     dest.c_str(),
                                                     &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -236,7 +236,7 @@ double IndyVdrCxx::build_get_schema_request(jsi::Runtime &rt, const jsi::Object 
                                                        schema_id.c_str(),
                                                        &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -249,22 +249,23 @@ double IndyVdrCxx::build_get_txn_author_agreement_request(jsi::Runtime &rt, cons
                                                                      data.length() > 0 ? data.c_str() : nullptr,
                                                                      &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
  
 double IndyVdrCxx::build_get_txn_request(jsi::Runtime &rt, const jsi::Object &options) {
     std::string submitter_did = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "submitter_did"), true);
-    int64_t ledger_type = TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "ledger_type"));
-    int64_t seq_no = TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "seq_no"));
+    int32_t ledger_type = TurboModuleUtils::jsiToValue<int32_t>(rt, options.getProperty(rt, "ledger_type"));
+    int32_t seq_no = TurboModuleUtils::jsiToValue<int32_t>(rt, options.getProperty(rt, "seq_no"));
     uintptr_t handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "handle_p"));
 
+    // TODO: fix warning
     ErrorCode code = indy_vdr_build_get_txn_request(submitter_did.length() > 0 ? submitter_did.c_str() : nullptr,
                                                     ledger_type,
                                                     seq_no,
                                                     &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -275,7 +276,7 @@ double IndyVdrCxx::build_get_validator_info_request(jsi::Runtime &rt, const jsi:
     ErrorCode code = indy_vdr_build_get_validator_info_request(submitter_did.c_str(),
                                                                &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -294,7 +295,7 @@ double IndyVdrCxx::build_nym_request(jsi::Runtime &rt, const jsi::Object &option
                                                 role.length() > 0 ? role.c_str() : nullptr,
                                                 &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -311,7 +312,7 @@ double IndyVdrCxx::build_revoc_reg_entry_request(jsi::Runtime &rt, const jsi::Ob
                                                             revoc_reg_entry.c_str(),
                                                             &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -324,7 +325,7 @@ double IndyVdrCxx::build_schema_request(jsi::Runtime &rt, const jsi::Object &opt
                                                    schema.c_str(),
                                                    &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -343,7 +344,7 @@ double IndyVdrCxx::build_txn_author_agreement_request(jsi::Runtime &rt, const js
                                                                  retirement_ts,
                                                                  &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
@@ -366,7 +367,7 @@ double IndyVdrCxx::build_rich_schema_request(jsi::Runtime &rt, const jsi::Object
                                                         ver.c_str(),
                                                         &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     
     return handle;
 };
@@ -377,7 +378,7 @@ double IndyVdrCxx::build_get_rich_schema_object_by_id_request(jsi::Runtime &rt, 
     uintptr_t handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "handle_p"));
     
     ErrorCode code = indy_vdr_build_get_rich_schema_object_by_id_request(submitter_did.c_str(), rs_id.c_str(), &handle);
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     
     return handle;
 };
@@ -395,65 +396,91 @@ double IndyVdrCxx::build_get_rich_schema_object_by_metadata_request(jsi::Runtime
                                                                                rs_version.c_str(),
                                                                                &handle);
 
-    TurboModuleUtils::handle_error(rt, code);
+    TurboModuleUtils::handleError(rt, code);
     return handle;
 };
 
 double IndyVdrCxx::pool_create(jsi::Runtime &rt, const jsi::Object &options) {
     std::string params = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "params"));
-    uintptr_t handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "handle_p"));
+    uintptr_t pool_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "handle_p"));
 
-    ErrorCode code = indy_vdr_pool_create(params.c_str(), &handle);
+    ErrorCode code = indy_vdr_pool_create(params.c_str(), &pool_handle);
 
-    TurboModuleUtils::handle_error(rt, code);
-    return handle;
+    TurboModuleUtils::handleError(rt, code);
+    return pool_handle;
 };
-
-// ---------------
-//    REFACTOR
-// ---------------
-
-// global state
-struct X {
-    jsi::Function cb;
-    // TODO: can we not make this a void pointer
-    void* rt;
-    
-    X(jsi::Function *cb_): cb(std::move(*cb_)) {}
-};
-
-// global state pointer
-X* xptr;
-
-void callback(uintptr_t a, ErrorCode b) {
-    auto cb = &xptr->cb;
-    auto rt = reinterpret_cast<jsi::Runtime*>(xptr->rt);
-
-    cb->call(*rt, int(a), int(b));
-}
 
 double IndyVdrCxx::pool_refresh(jsi::Runtime &rt, const jsi::Object &options) {
-    uintptr_t handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "pool_handle"));
+    uintptr_t pool_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "pool_handle"));
+    
     jsi::Function cb = options.getPropertyAsFunction(rt, "cb");
+    State *state = new State(&cb);
+    state->rt = &rt;
     
-    X *test = new X(&cb);
-    test->rt = &rt;
-    
-    xptr = test;
-    
-    ErrorCode code = indy_vdr_pool_refresh(handle, callback, uintptr_t(&xptr));
+    ErrorCode code = indy_vdr_pool_refresh(pool_handle, TurboModuleUtils::callback, uintptr_t(state));
 
-    TurboModuleUtils::handle_error(rt, code);
-    return handle;
+    TurboModuleUtils::handleError(rt, code);
+    return pool_handle;
 };
 
-double IndyVdrCxx::pool_get_status(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+double IndyVdrCxx::pool_get_status(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t pool_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "pool_handle"));
+    
+    jsi::Function cb = options.getPropertyAsFunction(rt, "cb");
+    State *state = new State(&cb);
+    state->rt = &rt;
+    
+    ErrorCode code = indy_vdr_pool_get_status(pool_handle, TurboModuleUtils::callbackWithResponse, uintptr_t(state));
 
-double IndyVdrCxx::pool_get_transactions(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+    TurboModuleUtils::handleError(rt, code);
+    return pool_handle;
+};
 
-double IndyVdrCxx::pool_get_verifiers(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+double IndyVdrCxx::pool_get_transactions(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t pool_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "pool_handle"));
+    
+    jsi::Function cb = options.getPropertyAsFunction(rt, "cb");
+    State *state = new State(&cb);
+    state->rt = &rt;
+    
+    ErrorCode code = indy_vdr_pool_get_transactions(pool_handle, TurboModuleUtils::callbackWithResponse, uintptr_t(state));
 
-double IndyVdrCxx::pool_submit_action(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+    TurboModuleUtils::handleError(rt, code);
+    return pool_handle;
+};
+
+double IndyVdrCxx::pool_get_verifiers(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t pool_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "pool_handle"));
+    
+    jsi::Function cb = options.getPropertyAsFunction(rt, "cb");
+    State *state = new State(&cb);
+    state->rt = &rt;
+    
+    ErrorCode code = indy_vdr_pool_get_verifiers(pool_handle, TurboModuleUtils::callbackWithResponse, uintptr_t(state));
+
+    TurboModuleUtils::handleError(rt, code);
+    return pool_handle;
+};
+
+double IndyVdrCxx::pool_submit_action(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t pool_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "pool_handle"));
+    uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));
+    std::string nodes = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "nodes"), true);
+    int32_t timeout = TurboModuleUtils::jsiToValue<int32_t>(rt, options.getProperty(rt, "timeout"), true);
+    
+    jsi::Function cb = options.getPropertyAsFunction(rt, "cb");
+    State *state = new State(&cb);
+    state->rt = &rt;
+    
+    ErrorCode code = indy_vdr_pool_submit_action(pool_handle,
+                                                 request_handle,
+                                                 nodes.length() > 0 ? nodes.c_str() : nullptr,
+                                                 timeout,
+                                                 TurboModuleUtils::callbackWithResponse, uintptr_t(state));
+
+    TurboModuleUtils::handleError(rt, code);
+    return pool_handle;
+};
 
 double IndyVdrCxx::pool_submit_request(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
 
@@ -461,7 +488,14 @@ double IndyVdrCxx::pool_close(jsi::Runtime &rt, const jsi::Object &options) {ret
 
 double IndyVdrCxx::prepare_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
 
-double IndyVdrCxx::request_free(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+double IndyVdrCxx::request_free(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));
+    
+    ErrorCode code = indy_vdr_request_free(request_handle);
+
+    TurboModuleUtils::handleError(rt, code);
+    return request_handle;
+};
 
 double IndyVdrCxx::request_get_body(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
 

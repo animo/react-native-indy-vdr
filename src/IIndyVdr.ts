@@ -1,10 +1,8 @@
-export type Callback = (cbId: number, err: number) => void;
+// TODO: async
+export type Callback = (err: number) => void;
 
-export type CallbackWithResponse = (
-  cbId: number,
-  err: number,
-  response: string
-) => void;
+// TODO: deserialize the response
+export type CallbackWithResponse = (err: number, response: string) => void;
 
 export type IndyVdrNativeBindings = {
   version(): string;
@@ -188,28 +186,21 @@ export type IndyVdrNativeBindings = {
 
   pool_create(options: { params: string; handle_p: number }): number;
 
-  pool_refresh(options: {
-    pool_handle: number;
-    cb?: Callback;
-    cb_id: number;
-  }): number;
+  pool_refresh(options: { pool_handle: number; cb: Callback }): number;
 
   pool_get_status(options: {
     pool_handle: number;
-    cb?: CallbackWithResponse;
-    cb_id: number;
+    cb: CallbackWithResponse;
   }): number;
 
   pool_get_transactions(options: {
     pool_handle: number;
-    cb?: CallbackWithResponse;
-    cb_id: number;
+    cb: CallbackWithResponse;
   }): number;
 
   pool_get_verifiers(options: {
     pool_handle: number;
-    cb?: CallbackWithResponse;
-    cb_id: number;
+    cb: CallbackWithResponse;
   }): number;
 
   pool_submit_action(options: {
@@ -217,15 +208,13 @@ export type IndyVdrNativeBindings = {
     request_handle: number;
     nodes?: string;
     timeout?: number;
-    cb?: CallbackWithResponse;
-    cb_id: number;
+    cb: CallbackWithResponse;
   }): number;
 
   pool_submit_request(options: {
     pool_handle: number;
     request_handle: number;
-    cb?: CallbackWithResponse;
-    cb_id: number;
+    cb: CallbackWithResponse;
   }): number;
 
   pool_close(options: { pool_handle: number }): number;

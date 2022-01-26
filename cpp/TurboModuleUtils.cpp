@@ -13,7 +13,7 @@ void TurboModuleUtils::installTurboModule(jsi::Runtime &rt, std::shared_ptr<Call
     rt.global().setProperty(rt, name, jsi::Object::createFromHostObject(rt, turboModule));
 }
 
-void TurboModuleUtils::handle_error(jsi::Runtime &rt, ErrorCode code) {
+void TurboModuleUtils::handleError(jsi::Runtime &rt, ErrorCode code) {
     int error_code = int(code);
     printf("error code: %d\n",error_code);
 
@@ -26,8 +26,28 @@ void TurboModuleUtils::handle_error(jsi::Runtime &rt, ErrorCode code) {
     throw jsi::JSError(rt, error_message);
 };
 
+// todo: pass void back or do we want to handle the errorCode in the js side so we can reject based on that?
+void TurboModuleUtils::callback(uintptr_t result, ErrorCode code) {
+    State *s = reinterpret_cast<State*>(result);
+    jsi::Function *cb = &s->cb;
+    jsi::Runtime *rt = reinterpret_cast<jsi::Runtime*>(s->rt);
+
+    cb->call(*rt, int(code));
+}
+
+void TurboModuleUtils::callbackWithResponse(uintptr_t result, ErrorCode code, const char* response) {
+    State *s = reinterpret_cast<State*>(result);
+    jsi::Function *cb = &s->cb;
+    jsi::Runtime *rt = reinterpret_cast<jsi::Runtime*>(s->rt);
+    
+    TurboModuleUtils::handleError(*rt, code);
+
+    cb->call(*rt, int(code), response);
+}
+
 template <>
 std::string TurboModuleUtils::jsiToValue<std::string>(jsi::Runtime &rt, jsi::Value value, bool optional) {
+    // We return an because we cannot return a nullptr.
     if ((value.isNull() || value.isUndefined()) && optional) return std::string();
   
     if (value.isString()) return value.asString(rt).utf8(rt);
@@ -37,6 +57,7 @@ std::string TurboModuleUtils::jsiToValue<std::string>(jsi::Runtime &rt, jsi::Val
 
 template <>
 int64_t TurboModuleUtils::jsiToValue<int64_t>(jsi::Runtime &rt, jsi::Value value, bool optional) {
+    // We return -1 here as rust interprets this as the optional value was not given.
     if ((value.isNull() || value.isUndefined()) && optional) return -1;
 
     if (value.isNumber()) return value.asNumber();
@@ -44,8 +65,12 @@ int64_t TurboModuleUtils::jsiToValue<int64_t>(jsi::Runtime &rt, jsi::Value value
     throw jsi::JSError(rt, "Value is not of type number");
 }
 
-//template <>
-//std::function<void (uintptr_t cb_id, ErrorCode err)>
-//TurboModuleUtils::jsiToValue<std::function<void (uintptr_t cb_id, ErrorCode err)>>(jsi::Runtime &rt, jsi::Value value, bool optional) {
-//    return [value](uintptr_t cb_id, ErrorCode err){};
-//}
+template <>
+int32_t TurboModuleUtils::jsiToValue<int32_t>(jsi::Runtime &rt, jsi::Value value, bool optional) {
+    // We return -1 here as rust interprets this as the optional value was not given.
+    if ((value.isNull() || value.isUndefined()) && optional) return -1;
+
+    if (value.isNumber()) return value.asNumber();
+
+    throw jsi::JSError(rt, "Value is not of type number");
+}
