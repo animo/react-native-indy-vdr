@@ -49,6 +49,7 @@ const serializeArguments = (args: Record<string, Argument>) => {
       if (typeof val.getDay === 'function') {
         return { [key]: val.valueOf() };
       }
+      console.log('OBJ');
       return { [key]: JSON.stringify(val) };
     }
     return { [key]: val };

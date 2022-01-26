@@ -67,7 +67,7 @@ class IndyVdr {
 
     this.handle = NativeIndyVdr.build_acceptance_mechanisms_request({
       submitter_did: submitterDid,
-      aml: aml,
+      aml,
       version,
       aml_context: amlContext,
       handle_p: this.handle,
@@ -229,7 +229,7 @@ class IndyVdr {
     });
   }
 
-  public buildcustomrequest(options: { requestJson: Record<string, unknown> }) {
+  public buildCustomRequest(options: { requestJson: Record<string, unknown> }) {
     const { requestJson } = serializeArguments(options) as SerializedArguments<
       typeof options
     >;
@@ -458,13 +458,15 @@ class IndyVdr {
       });
   }
 
-  public poolCreate(options: { params: string }) {
+  public poolCreate(options: { params: Record<string, unknown> }) {
     const { params } = serializeArguments(options) as SerializedArguments<
       typeof options
     >;
 
+    console.log(typeof params);
+
     this.handle = NativeIndyVdr.pool_create({
-      params,
+      params: JSON.stringify(params),
       handle_p: this.handle,
     });
   }
@@ -476,13 +478,13 @@ class IndyVdr {
     cb?: Callback;
     cbId: number;
   }) {
-    const { poolHandle, cb, cbId } = serializeArguments(
-      options
-    ) as SerializedArguments<typeof options>;
+    const { cb, cbId } = serializeArguments(options) as SerializedArguments<
+      typeof options
+    >;
 
     this.handle = NativeIndyVdr.pool_refresh({
       cb_id: cbId,
-      pool_handle: poolHandle,
+      pool_handle: this.handle,
       cb,
     });
   }

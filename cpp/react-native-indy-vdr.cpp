@@ -409,7 +409,43 @@ double IndyVdrCxx::pool_create(jsi::Runtime &rt, const jsi::Object &options) {
     return handle;
 };
 
-double IndyVdrCxx::pool_refresh(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+// ---------------
+//    REFACTOR
+// ---------------
+
+// global state
+struct X {
+    jsi::Function cb;
+    // TODO: can we not make this a void pointer
+    void* rt;
+    
+    X(jsi::Function *cb_): cb(std::move(*cb_)) {}
+};
+
+// global state pointer
+X* xptr;
+
+void callback(uintptr_t a, ErrorCode b) {
+    auto cb = &xptr->cb;
+    auto rt = reinterpret_cast<jsi::Runtime*>(xptr->rt);
+
+    cb->call(*rt, int(a), int(b));
+}
+
+double IndyVdrCxx::pool_refresh(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "pool_handle"));
+    jsi::Function cb = options.getPropertyAsFunction(rt, "cb");
+    
+    X *test = new X(&cb);
+    test->rt = &rt;
+    
+    xptr = test;
+    
+    ErrorCode code = indy_vdr_pool_refresh(handle, callback, uintptr_t(&xptr));
+
+    TurboModuleUtils::handle_error(rt, code);
+    return handle;
+};
 
 double IndyVdrCxx::pool_get_status(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
 

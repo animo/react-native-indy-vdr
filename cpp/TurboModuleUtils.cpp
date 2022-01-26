@@ -18,7 +18,7 @@ void TurboModuleUtils::handle_error(jsi::Runtime &rt, ErrorCode code) {
     printf("error code: %d\n",error_code);
 
     // TODO: what should we do when rust panics (code = 7)
-    if (error_code == 0 || error_code == 7) return;
+    if (error_code == 0) return;
 
     const char *error_message = "";
     indy_vdr_get_current_error(&error_message);
@@ -43,3 +43,9 @@ int64_t TurboModuleUtils::jsiToValue<int64_t>(jsi::Runtime &rt, jsi::Value value
 
     throw jsi::JSError(rt, "Value is not of type number");
 }
+
+//template <>
+//std::function<void (uintptr_t cb_id, ErrorCode err)>
+//TurboModuleUtils::jsiToValue<std::function<void (uintptr_t cb_id, ErrorCode err)>>(jsi::Runtime &rt, jsi::Value value, bool optional) {
+//    return [value](uintptr_t cb_id, ErrorCode err){};
+//}
