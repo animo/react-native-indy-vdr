@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ScrollView } from 'react-native';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { IndyVdr } from 'react-native-indy-vdr';
 
@@ -14,12 +15,14 @@ type Func = {
 export default function App() {
   const [handle, setHandle] = React.useState(indyVdr.getHandle);
   const [poolHandle, setPoolHandle] = React.useState(indyVdr.getPoolHandle);
+  const [body, setBody] = React.useState('');
+  const [signatureInput, setSignatureInput] = React.useState('');
 
   const functions: Func[] = [
     { version: () => indyVdr.version() },
-    { set_protocol_version: () => indyVdr.setProtocolVersion({ version: 2 }) },
     { set_config: () => indyVdr.setConfig({ config: { test: 'test' } }) },
     { set_default_logger: () => indyVdr.setDefaultLogger() },
+    { set_protocol_version: () => indyVdr.setProtocolVersion({ version: 2 }) },
     { set_socks_proxy: () => indyVdr.setSocksProxy({ socksProxy: 'abc' }) },
     {
       build_acceptance_mechanisms_request: () =>
@@ -28,20 +31,6 @@ export default function App() {
           aml: { key: 'ja' },
           version: '1.0.0',
           amlContext: 'a',
-        }),
-    },
-    {
-      // TODO: fill the schema type
-      build_schema_request: () =>
-        indyVdr.buildSchemaRequest({
-          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
-          schema: {
-            id: 'GShBXJZJ2oZvKoTQqceiMC:2:FestivalLeeftijd:1.0.0',
-            name: 'FestivalLeeftijd',
-            ver: '1.0',
-            version: '1.0.0',
-            attrNames: ['a'],
-          },
         }),
     },
     {
@@ -60,6 +49,163 @@ export default function App() {
           enc: 'a',
           raw: { b: 'c' },
           hash: 'd',
+        }),
+    },
+    {
+      build_get_attrib_request: () =>
+        indyVdr.buildGetAttribRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          targetDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          enc: 'a',
+          raw: { b: 'c' },
+          hash: 'd',
+        }),
+    },
+    {
+      build_cred_def_request: () =>
+        indyVdr.buildCredDefRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          credDef: { a: 'b' },
+        }),
+    },
+    {
+      build_custom_request: () =>
+        indyVdr.buildCustomRequest({
+          requestJson: { a: 'v' },
+        }),
+    },
+    {
+      build_disable_all_txn_author_agreements_request: () =>
+        indyVdr.buildDisableAllTxnAuthorAgreementsRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+        }),
+    },
+    {
+      build_get_cred_def_request: () =>
+        indyVdr.buildGetCredDefRequest({
+          credDefId: 'a',
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+        }),
+    },
+    {
+      build_get_nym_request: () =>
+        indyVdr.buildGetNymRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          dest: 'a',
+        }),
+    },
+    {
+      build_get_revoc_reg_request: () =>
+        indyVdr.buildGetRevocRegRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          timestamp: new Date(),
+          revocRegId: 'a',
+        }),
+    },
+    {
+      build_get_revoc_reg_detla_request: () =>
+        indyVdr.buildGetRevocRegDefRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          revocRegId: 'a',
+        }),
+    },
+    {
+      build_get_schema_request: () =>
+        indyVdr.buildGetSchemaRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          schemaId: 'GShBXJZJ2oZvKoTQqceiMC:2:FestivalLeeftijd:1.0.0',
+        }),
+    },
+    {
+      build_get_txn_request: () =>
+        indyVdr.buildGetTxnRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          seqNo: 1,
+          ledgerType: 1,
+        }),
+    },
+    {
+      build_get_validator_info_request: () =>
+        indyVdr.buildGetValidatorInfoRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          seqNo: 1,
+        }),
+    },
+    {
+      build_nym_request: () =>
+        indyVdr.buildNymRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          dest: 'a',
+          role: 'a',
+          alias: 'a',
+          verkey: 'a',
+        }),
+    },
+    {
+      build_get_revoc_reg_def_request: () =>
+        indyVdr.buildRevocRegDefRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          revocRegId: 'a',
+        }),
+    },
+    {
+      build_get_revoc_reg_entry_request: () =>
+        indyVdr.buildRevocRegEntryRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          revocRegDefId: 'a',
+          revocRegEntry: 'a',
+          revocRegDefType: 'a',
+        }),
+    },
+    {
+      build_schema_request: () =>
+        indyVdr.buildSchemaRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          schema: {
+            id: 'GShBXJZJ2oZvKoTQqceiMC:2:FestivalLeeftijd:1.0.0',
+            name: 'FestivalLeeftijd',
+            ver: '1.0',
+            version: '1.0.0',
+            attrNames: ['a'],
+          },
+        }),
+    },
+    {
+      build_txn_author_agreement_request: () =>
+        indyVdr.buildTxnAuthorAgreementRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          version: 'a',
+          text: 'a',
+          retirementTs: 1,
+          ratificationTs: 1,
+        }),
+    },
+    {
+      build_rich_schema_request: () =>
+        indyVdr.buildRichSchemaRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          ver: 'a',
+          rsId: 'a',
+          rsName: 'a',
+          rsType: 'a',
+          rsContent: 'a',
+          rsVersion: 'a',
+        }),
+    },
+    {
+      build_get_rich_schema_object_by_id_request: () =>
+        indyVdr.buildGetRichSchemaObjectByIdRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          rsId: 'a',
+        }),
+    },
+    {
+      build_get_rich_schema_object_by_metadata_request: () =>
+        indyVdr.buildGetRichSchemaObjectByMetadataRequest({
+          submitterDid: 'GShBXJZJ2oZvKoTQqceiMC',
+          rsName: 'a',
+          rsType: 'a',
+          rsVersion: 'a',
         }),
     },
     {
@@ -100,6 +246,15 @@ export default function App() {
     {
       pool_submit_action: () =>
         indyVdr.poolSubmitAction({
+          nodes: 'a',
+          timeout: 1,
+          cb: (errorCode, result) =>
+            console.log(`code: ${errorCode} \n result: ${result}`),
+        }),
+    },
+    {
+      pool_submit_request: () =>
+        indyVdr.poolSubmitRequest({
           cb: (errorCode, result) =>
             console.log(`code: ${errorCode} \n result: ${result}`),
         }),
@@ -107,30 +262,70 @@ export default function App() {
     {
       request_free: () => indyVdr.requestFree(),
     },
+    {
+      request_get_body: () => setBody(indyVdr.requestGetBody()),
+    },
+    {
+      request_get_signature_input: () =>
+        setSignatureInput(indyVdr.requestGetSignatureInput()),
+    },
+    {
+      request_set_endorser: () =>
+        indyVdr.requestSetEndorser({
+          endorser: 'a',
+        }),
+    },
+    {
+      request_set_multi_signature: () =>
+        indyVdr.requestSetMultiSignature({
+          signature: 1,
+          identifier: 'a',
+          signatureLen: 1,
+        }),
+    },
+    {
+      request_set_signature: () =>
+        indyVdr.requestSetSignature({
+          signature: 1,
+          signatureLen: 1,
+        }),
+    },
+    {
+      request_set_txn_author_agreement_acceptance: () =>
+        indyVdr.requestSetTxnAuthorAgreementAcceptance({
+          acceptance: 'a',
+        }),
+    },
   ];
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Indy Vdr React Native Example</Text>
+      <Text style={styles.title}>
+        Indy Vdr ({indyVdr.version()}) React Native Example
+      </Text>
       <Text>handle: {handle}</Text>
       <Text>poolHandle: {poolHandle}</Text>
       <Text>functions mapped: {functions.length}</Text>
-      {functions.map((value) => {
-        const [functionName, func] = Object.entries(value)[0];
-        return (
-          <View key={functionName}>
-            <Button
-              onPress={() => {
-                func();
-                functionName.startsWith('pool_')
-                  ? setPoolHandle(indyVdr.getPoolHandle)
-                  : setHandle(indyVdr.getHandle);
-              }}
-              title={functionName}
-            />
-          </View>
-        );
-      })}
+      <Text>body: {body}</Text>
+      <Text>signatureInput: {signatureInput}</Text>
+      <ScrollView>
+        {functions.map((value) => {
+          const [functionName, func] = Object.entries(value)[0];
+          return (
+            <View key={functionName}>
+              <Button
+                onPress={() => {
+                  func();
+                  functionName.startsWith('pool_')
+                    ? setPoolHandle(indyVdr.getPoolHandle)
+                    : setHandle(indyVdr.getHandle);
+                }}
+                title={functionName.split('_').join(' ')}
+              />
+            </View>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 }
@@ -140,6 +335,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 50,
   },
   title: {
     fontWeight: 'bold',

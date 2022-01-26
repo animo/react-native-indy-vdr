@@ -74,3 +74,13 @@ int32_t TurboModuleUtils::jsiToValue<int32_t>(jsi::Runtime &rt, jsi::Value value
 
     throw jsi::JSError(rt, "Value is not of type number");
 }
+
+template <>
+uint8_t TurboModuleUtils::jsiToValue<uint8_t>(jsi::Runtime &rt, jsi::Value value, bool optional) {
+    // We return -1 here as rust interprets this as the optional value was not given.
+    if ((value.isNull() || value.isUndefined()) && optional) return -1;
+
+    if (value.isNumber()) return value.asNumber();
+
+    throw jsi::JSError(rt, "Value is not of type number");
+}

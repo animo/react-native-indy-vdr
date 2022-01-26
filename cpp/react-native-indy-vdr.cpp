@@ -497,15 +497,73 @@ double IndyVdrCxx::request_free(jsi::Runtime &rt, const jsi::Object &options) {
     return request_handle;
 };
 
-double IndyVdrCxx::request_get_body(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+jsi::String IndyVdrCxx::request_get_body(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));
+    const char* body_p;
+    
+    ErrorCode code = indy_vdr_request_get_body(request_handle, &body_p);
 
-double IndyVdrCxx::request_get_signature_input(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+    TurboModuleUtils::handleError(rt, code);
+    
+    return jsi::String::createFromAscii(rt, body_p);
+};
 
-double IndyVdrCxx::request_set_endorser(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+jsi::String IndyVdrCxx::request_get_signature_input(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));
+    const char* input_p;
+    
+    ErrorCode code = indy_vdr_request_get_signature_input(request_handle, &input_p);
 
-double IndyVdrCxx::request_set_multi_signature(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+    TurboModuleUtils::handleError(rt, code);
+    
+    return jsi::String::createFromAscii(rt, input_p);
+};
 
-double IndyVdrCxx::request_set_signature(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+double IndyVdrCxx::request_set_endorser(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));
+    std::string endorser = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "endorser"));
+    
+    ErrorCode code = indy_vdr_request_set_endorser(request_handle, endorser.c_str());
 
-double IndyVdrCxx::request_set_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+    TurboModuleUtils::handleError(rt, code);
+    
+    return request_handle;
+};
+
+double IndyVdrCxx::request_set_multi_signature(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));
+    std::string identifier = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "identifier"));
+    // TODO: signature uint8_t whats that all about
+    uint8_t signature = TurboModuleUtils::jsiToValue<uint8_t>(rt, options.getProperty(rt, "signature"));
+    int64_t signature_len = TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "signature_len"));
+    
+    ErrorCode code = indy_vdr_request_set_multi_signature(request_handle, identifier.c_str(), &signature, signature_len);
+
+    TurboModuleUtils::handleError(rt, code);
+    
+    return request_handle;
+};
+
+double IndyVdrCxx::request_set_signature(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));
+    uint8_t signature = TurboModuleUtils::jsiToValue<uint8_t>(rt, options.getProperty(rt, "signature"));
+    int64_t signature_len = TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "signature_len"));
+    
+    ErrorCode code = indy_vdr_request_set_signature(request_handle, &signature, signature_len);
+
+    TurboModuleUtils::handleError(rt, code);
+    
+    return request_handle;
+};
+
+double IndyVdrCxx::request_set_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));
+    std::string acceptance = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "acceptance"));
+    
+    ErrorCode code = indy_vdr_request_set_txn_author_agreement_acceptance(request_handle, acceptance.c_str());
+
+    TurboModuleUtils::handleError(rt, code);
+    
+    return request_handle;
+};
 

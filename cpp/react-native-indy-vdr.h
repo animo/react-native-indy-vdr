@@ -61,12 +61,13 @@ public:
     double prepare_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options);
     
     double request_free(jsi::Runtime &rt, const jsi::Object &options);
-    double request_get_body(jsi::Runtime &rt, const jsi::Object &options);
-    double request_get_signature_input(jsi::Runtime &rt, const jsi::Object &options);
     double request_set_endorser(jsi::Runtime &rt, const jsi::Object &options);
     double request_set_multi_signature(jsi::Runtime &rt, const jsi::Object &options);
     double request_set_signature(jsi::Runtime &rt, const jsi::Object &options);
     double request_set_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options);
+    
+    jsi::String request_get_body(jsi::Runtime &rt, const jsi::Object &options);
+    jsi::String request_get_signature_input(jsi::Runtime &rt, const jsi::Object &options);
 };
 
 } // namespace react

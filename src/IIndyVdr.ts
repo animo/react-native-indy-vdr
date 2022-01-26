@@ -230,12 +230,9 @@ export type IndyVdrNativeBindings = {
 
   request_free(options: { request_handle: number }): number;
 
-  request_get_body(options: { request_handle: number; body_p: string }): number;
+  request_get_body(options: { request_handle: number }): string;
 
-  request_get_signature_input(options: {
-    request_handle: number;
-    input_p: string;
-  }): number;
+  request_get_signature_input(options: { request_handle: number }): string;
 
   request_set_endorser(options: {
     request_handle: number;
@@ -245,7 +242,7 @@ export type IndyVdrNativeBindings = {
   request_set_multi_signature(options: {
     request_handle: number;
     identifier: string;
-    signature: string;
+    signature: number;
     signature_len: number;
   }): number;
 

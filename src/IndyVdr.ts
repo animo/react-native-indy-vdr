@@ -156,63 +156,63 @@ class IndyVdr {
   }
 
   public buildGetCredDefRequest(options: {
-    submittedDid?: string;
+    submitterDid?: string;
     credDefId: string;
   }) {
-    const { submittedDid, credDefId } = serializeArguments(
+    const { submitterDid, credDefId } = serializeArguments(
       options
     ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_cred_def_request({
-      submitter_did: submittedDid,
+      submitter_did: submitterDid,
       cred_def_id: credDefId,
       handle_p: this.handle,
     });
   }
-  public buildGetRevocRefDefRequest(options: {
-    submittedDid?: string;
+  public buildGetRevocRegDefRequest(options: {
+    submitterDid?: string;
     revocRegId: string;
   }) {
-    const { revocRegId, submittedDid } = serializeArguments(
+    const { revocRegId, submitterDid } = serializeArguments(
       options
     ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_revoc_reg_def_request({
-      submitter_did: submittedDid,
+      submitter_did: submitterDid,
       revoc_reg_id: revocRegId,
       handle_p: this.handle,
     });
   }
 
-  public buildGetRevocRefRequest(options: {
-    submittedDid?: string;
+  public buildGetRevocRegRequest(options: {
+    submitterDid?: string;
     revocRegId: string;
     timestamp: Date;
   }) {
-    const { submittedDid, timestamp, revocRegId } = serializeArguments(
+    const { submitterDid, timestamp, revocRegId } = serializeArguments(
       options
     ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_revoc_reg_request({
-      submitter_did: submittedDid,
+      submitter_did: submitterDid,
       revoc_reg_id: revocRegId,
       timestamp: timestamp.valueOf(),
       handle_p: this.handle,
     });
   }
 
-  public buildGetRevocRefDeltaRequest(options: {
-    submittedDid?: string;
+  public buildGetRevocRegDeltaRequest(options: {
+    submitterDid?: string;
     revocRegId: string;
     fromTs?: number;
     toTs: number;
   }) {
-    const { submittedDid, revocRegId, fromTs, toTs } = serializeArguments(
+    const { submitterDid, revocRegId, fromTs, toTs } = serializeArguments(
       options
     ) as SerializedOptions<typeof options>;
 
     this.handle = NativeIndyVdr.build_get_revoc_reg_delta_request({
-      submitter_did: submittedDid,
+      submitter_did: submitterDid,
       revoc_reg_id: revocRegId,
       from_ts: fromTs,
       to_ts: toTs,
@@ -355,7 +355,7 @@ class IndyVdr {
     });
   }
 
-  public buildRevocReqEntryRequest(options: {
+  public buildRevocRegEntryRequest(options: {
     submitterDid: string;
     revocRegDefId: string;
     revocRegDefType: string;
@@ -544,6 +544,18 @@ class IndyVdr {
     });
   }
 
+  public poolSubmitRequest(options: { cb: CallbackWithResponse }) {
+    const { cb } = serializeArguments(options) as SerializedOptions<
+      typeof options
+    >;
+
+    this.poolHandle = NativeIndyVdr.pool_submit_request({
+      pool_handle: this.poolHandle,
+      request_handle: this.handle,
+      cb,
+    });
+  }
+
   public poolClose() {
     this.poolHandle = NativeIndyVdr.pool_close({
       pool_handle: this.poolHandle,
@@ -580,25 +592,15 @@ class IndyVdr {
   }
 
   // TODO: check body
-  public requestGetBody(options: { bodyP: string }) {
-    const { bodyP } = serializeArguments(options) as SerializedOptions<
-      typeof options
-    >;
-
-    this.handle = NativeIndyVdr.request_get_body({
+  public requestGetBody() {
+    return NativeIndyVdr.request_get_body({
       request_handle: this.handle,
-      body_p: bodyP,
     });
   }
 
-  public requestGetSignatureInput(options: { inputP: string }) {
-    const { inputP } = serializeArguments(options) as SerializedOptions<
-      typeof options
-    >;
-
-    this.handle = NativeIndyVdr.request_get_signature_input({
+  public requestGetSignatureInput() {
+    return NativeIndyVdr.request_get_signature_input({
       request_handle: this.handle,
-      input_p: inputP,
     });
   }
 
@@ -615,7 +617,7 @@ class IndyVdr {
 
   public requestSetMultiSignature(options: {
     identifier: string;
-    signature: string;
+    signature: number;
     signatureLen: number;
   }) {
     const { signature, signatureLen, identifier } = serializeArguments(

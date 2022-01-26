@@ -79,9 +79,9 @@ interface IndyVdrTscodegen extends TurboModule {
 
   request_free(options: {}): number;
 
-  request_get_body(options: {}): number;
+  request_get_body(options: {}): string;
 
-  request_get_signature_input(options: {}): number;
+  request_get_signature_input(options: {}): string;
 
   request_set_endorser(options: {}): number;
 
