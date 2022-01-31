@@ -219,46 +219,49 @@ export default function App() {
     },
     {
       pool_refresh: () =>
-        indyVdr.poolRefresh({
-          cb: (errorCode) => console.log('errorCode: ', errorCode),
-        }),
+        indyVdr
+          .poolRefresh()
+          .then((a) => console.log('response: ', a))
+          .catch((e) => console.error('error: ', e)),
     },
     {
       pool_get_status: () =>
-        indyVdr.poolGetStatus({
-          cb: (errorCode, result) =>
-            console.log(`code: ${errorCode} \n result: ${result}`),
-        }),
+        indyVdr
+          .poolGetStatus()
+          .then((a) => console.log('response: ', a))
+          .catch((e) => console.error('error: ', e)),
     },
     {
       pool_get_transactions: () =>
-        indyVdr.poolGetTransactions({
-          cb: (errorCode, result) =>
-            console.log(`code: ${errorCode} \n result: ${result}`),
-        }),
+        indyVdr
+          .poolGetTransactions()
+          .then((a) => console.log('response: ', a))
+          .catch((e) => console.error('error: ', e)),
     },
     {
       pool_get_verifiers: () =>
-        indyVdr.poolGetVerfiers({
-          cb: (errorCode, result) =>
-            console.log(`code: ${errorCode} \n result: ${result}`),
-        }),
+        indyVdr
+          .poolGetVerfiers()
+          .then((a) => console.log('response: ', a))
+
+          .catch((e) => console.error('error: ', e)),
     },
     {
       pool_submit_action: () =>
-        indyVdr.poolSubmitAction({
-          nodes: 'a',
-          timeout: 1,
-          cb: (errorCode, result) =>
-            console.log(`code: ${errorCode} \n result: ${result}`),
-        }),
+        indyVdr
+          .poolSubmitAction({
+            nodes: 'a',
+            timeout: 1,
+          })
+          .then((a) => console.log('response: ', a))
+          .catch((e) => console.error('error: ', e)),
     },
     {
       pool_submit_request: () =>
-        indyVdr.poolSubmitRequest({
-          cb: (errorCode, result) =>
-            console.log(`code: ${errorCode} \n result: ${result}`),
-        }),
+        indyVdr
+          .poolSubmitRequest()
+          .then((a) => console.log('response: ', 'a'))
+          .catch((e) => console.error(e)),
     },
     {
       request_free: () => indyVdr.requestFree(),

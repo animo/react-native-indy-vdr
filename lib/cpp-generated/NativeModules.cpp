@@ -15,6 +15,9 @@ namespace react {
 static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_version(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
   return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->version(rt);
 }
+static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_get_current_error(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
+  return static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->get_current_error(rt);
+}
 static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_set_config(jsi::Runtime &rt, TurboModule &turboModule, const jsi::Value* args, size_t count) {
   static_cast<IndyVdrCxxSpecJSI *>(&turboModule)->set_config(rt, args[0].getObject(rt));
   return jsi::Value::undefined();
@@ -155,6 +158,7 @@ static jsi::Value __hostFunction_IndyVdrCxxSpecJSI_request_set_txn_author_agreem
 IndyVdrCxxSpecJSI::IndyVdrCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker)
   : TurboModule("IndyVdr", jsInvoker) {
   methodMap_["version"] = MethodMetadata {0, __hostFunction_IndyVdrCxxSpecJSI_version};
+  methodMap_["get_current_error"] = MethodMetadata {0, __hostFunction_IndyVdrCxxSpecJSI_get_current_error};
   methodMap_["set_config"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_set_config};
   methodMap_["set_default_logger"] = MethodMetadata {0, __hostFunction_IndyVdrCxxSpecJSI_set_default_logger};
   methodMap_["set_protocol_version"] = MethodMetadata {1, __hostFunction_IndyVdrCxxSpecJSI_set_protocol_version};

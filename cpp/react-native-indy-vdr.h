@@ -19,6 +19,7 @@ public:
     IndyVdrCxx(std::shared_ptr<CallInvoker> jsInvoker);
 
     jsi::String version(jsi::Runtime &rt);
+    jsi::String get_current_error(jsi::Runtime &rt);
     void set_config(jsi::Runtime &rt, const jsi::Object &options);
     void set_default_logger(jsi::Runtime &rt);
     void set_protocol_version(jsi::Runtime &rt, const jsi::Object &options);

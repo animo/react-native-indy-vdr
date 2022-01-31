@@ -3,6 +3,8 @@ import { TurboModule, TurboModuleRegistry } from 'react-native-tscodegen-types';
 interface IndyVdrTscodegen extends TurboModule {
   version(): string;
 
+  get_current_error(): string;
+
   set_config(options: {}): void;
 
   set_default_logger(): void;

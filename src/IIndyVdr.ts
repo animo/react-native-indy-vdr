@@ -7,6 +7,8 @@ export type CallbackWithResponse = (err: number, response: string) => void;
 export type IndyVdrNativeBindings = {
   version(): string;
 
+  get_current_error(): string;
+
   set_config(options: { config: string }): void;
 
   set_default_logger(): void;

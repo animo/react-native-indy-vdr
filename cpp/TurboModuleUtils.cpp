@@ -39,8 +39,6 @@ void TurboModuleUtils::callbackWithResponse(uintptr_t result, ErrorCode code, co
     State *s = reinterpret_cast<State*>(result);
     jsi::Function *cb = &s->cb;
     jsi::Runtime *rt = reinterpret_cast<jsi::Runtime*>(s->rt);
-    
-    TurboModuleUtils::handleError(*rt, code);
 
     cb->call(*rt, int(code), response);
 }

@@ -1,8 +1,4 @@
-import type {
-  Callback,
-  CallbackWithResponse,
-  IndyVdrNativeBindings,
-} from './IIndyVdr';
+import type { IndyVdrNativeBindings } from './IIndyVdr';
 import {
   serializeArguments,
   SerializedOptions,
@@ -25,6 +21,37 @@ class IndyVdr {
   get getPoolHandle() {
     return this.poolHandle;
   }
+
+  get latestError() {
+    return NativeIndyVdr.get_current_error();
+  }
+
+  private promisify = (
+    method: (cb: (...args: any[]) => void) => void
+  ): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const _cb = (err: number) => {
+        if (err !== 0) reject(this.latestError);
+        resolve();
+      };
+
+      method(_cb);
+    });
+  };
+
+  // TODO: deserialize response with generics
+  private promisifyWithResponse = (
+    method: (cb: (...args: any[]) => void) => void
+  ): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const _cb = (err: number, response: string) => {
+        if (err !== 0) reject(this.latestError);
+        resolve(response);
+      };
+
+      method(_cb);
+    });
+  };
 
   public version() {
     return NativeIndyVdr.version();
@@ -382,8 +409,6 @@ class IndyVdr {
       options
     ) as SerializedOptions<typeof options>;
 
-    console.log(typeof schema);
-
     this.handle = NativeIndyVdr.build_schema_request({
       submitter_did: submitterDid,
       schema,
@@ -482,78 +507,72 @@ class IndyVdr {
     });
   }
 
-  public poolRefresh(options: { cb: Callback }) {
-    const { cb } = serializeArguments(options) as SerializedOptions<
+  public async poolRefresh() {
+    return this.promisify(
+      (cb) =>
+        (this.poolHandle = NativeIndyVdr.pool_refresh({
+          pool_handle: this.poolHandle,
+          cb,
+        }))
+    );
+  }
+
+  public async poolGetStatus() {
+    return this.promisifyWithResponse(
+      (cb) =>
+        (this.poolHandle = NativeIndyVdr.pool_get_status({
+          pool_handle: this.poolHandle,
+          cb,
+        }))
+    );
+  }
+
+  public async poolGetTransactions() {
+    return this.promisifyWithResponse(
+      (cb) =>
+        (this.poolHandle = NativeIndyVdr.pool_get_transactions({
+          pool_handle: this.poolHandle,
+          cb,
+        }))
+    );
+  }
+
+  public async poolGetVerfiers() {
+    return this.promisifyWithResponse(
+      (cb) =>
+        (this.poolHandle = NativeIndyVdr.pool_get_verifiers({
+          pool_handle: this.poolHandle,
+          cb,
+        }))
+    );
+  }
+
+  public async poolSubmitAction(options: { nodes?: string; timeout?: number }) {
+    const { nodes, timeout } = serializeArguments(options) as SerializedOptions<
       typeof options
     >;
 
-    this.poolHandle = NativeIndyVdr.pool_refresh({
-      pool_handle: this.poolHandle,
-      cb,
-    });
+    return this.promisifyWithResponse(
+      (cb) =>
+        (this.poolHandle = NativeIndyVdr.pool_submit_action({
+          pool_handle: this.poolHandle,
+          request_handle: this.handle,
+          nodes,
+          timeout,
+          cb,
+        }))
+    );
   }
 
-  public poolGetStatus(options: { cb: CallbackWithResponse }) {
-    const { cb } = serializeArguments(options) as SerializedOptions<
-      typeof options
-    >;
-
-    this.poolHandle = NativeIndyVdr.pool_get_status({
-      pool_handle: this.poolHandle,
-      cb,
-    });
-  }
-
-  public poolGetTransactions(options: { cb: CallbackWithResponse }) {
-    const { cb } = serializeArguments(options) as SerializedOptions<
-      typeof options
-    >;
-
-    this.poolHandle = NativeIndyVdr.pool_get_transactions({
-      pool_handle: this.poolHandle,
-      cb,
-    });
-  }
-
-  public poolGetVerfiers(options: { cb: CallbackWithResponse }) {
-    const { cb } = serializeArguments(options) as SerializedOptions<
-      typeof options
-    >;
-
-    this.poolHandle = NativeIndyVdr.pool_get_verifiers({
-      pool_handle: this.poolHandle,
-      cb,
-    });
-  }
-
-  public poolSubmitAction(options: {
-    nodes?: string;
-    timeout?: number;
-    cb: CallbackWithResponse;
-  }) {
-    const { cb, nodes, timeout } = serializeArguments(
-      options
-    ) as SerializedOptions<typeof options>;
-
-    this.poolHandle = NativeIndyVdr.pool_submit_action({
-      pool_handle: this.poolHandle,
-      request_handle: this.handle,
-      nodes,
-      timeout,
-      cb,
-    });
-  }
-
-  public poolSubmitRequest(options: { cb: CallbackWithResponse }) {
-    const { cb } = serializeArguments(options) as SerializedOptions<
-      typeof options
-    >;
-
-    this.poolHandle = NativeIndyVdr.pool_submit_request({
-      pool_handle: this.poolHandle,
-      request_handle: this.handle,
-      cb,
-    });
+  public async poolSubmitRequest() {
+    return this.promisifyWithResponse(
+      (cb) =>
+        (this.poolHandle = NativeIndyVdr.pool_submit_request({
+          pool_handle: this.poolHandle,
+          request_handle: this.handle,
+          cb,
+        }))
+    );
   }
 
   public poolClose() {
@@ -582,14 +601,14 @@ class IndyVdr {
     });
   }
 
-  // TODO: check requesthandle
+  // TODO: check type requesthandle
   public requestFree() {
     this.handle = NativeIndyVdr.request_free({
       request_handle: this.handle,
     });
   }
 
-  // TODO: check body
+  // TODO: check type body
   public requestGetBody() {
     return NativeIndyVdr.request_get_body({
       request_handle: this.handle,

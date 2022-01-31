@@ -9,6 +9,16 @@ jsi::String IndyVdrCxx::version(jsi::Runtime &rt) {
     return jsi::String::createFromAscii(rt, indy_vdr_version());
 };
 
+jsi::String IndyVdrCxx::get_current_error(jsi::Runtime &rt) {
+    const char* error_message;
+    ErrorCode code = indy_vdr_get_current_error(&error_message);
+
+    // TODO: do we want to handle errors here
+    TurboModuleUtils::handleError(rt, code);
+
+    return jsi::String::createFromAscii(rt, error_message);
+}
+
 void IndyVdrCxx::set_default_logger(jsi::Runtime &rt) {
     ErrorCode code = indy_vdr_set_default_logger();
     TurboModuleUtils::handleError(rt, code);
@@ -417,9 +427,8 @@ double IndyVdrCxx::pool_refresh(jsi::Runtime &rt, const jsi::Object &options) {
     State *state = new State(&cb);
     state->rt = &rt;
     
-    ErrorCode code = indy_vdr_pool_refresh(pool_handle, TurboModuleUtils::callback, uintptr_t(state));
+    indy_vdr_pool_refresh(pool_handle, TurboModuleUtils::callback, uintptr_t(state));
 
-    TurboModuleUtils::handleError(rt, code);
     return pool_handle;
 };
 
@@ -430,9 +439,10 @@ double IndyVdrCxx::pool_get_status(jsi::Runtime &rt, const jsi::Object &options)
     State *state = new State(&cb);
     state->rt = &rt;
     
-    ErrorCode code = indy_vdr_pool_get_status(pool_handle, TurboModuleUtils::callbackWithResponse, uintptr_t(state));
+    indy_vdr_pool_get_status(pool_handle,
+                             TurboModuleUtils::callbackWithResponse,
+                             uintptr_t(state));
 
-    TurboModuleUtils::handleError(rt, code);
     return pool_handle;
 };
 
@@ -443,9 +453,10 @@ double IndyVdrCxx::pool_get_transactions(jsi::Runtime &rt, const jsi::Object &op
     State *state = new State(&cb);
     state->rt = &rt;
     
-    ErrorCode code = indy_vdr_pool_get_transactions(pool_handle, TurboModuleUtils::callbackWithResponse, uintptr_t(state));
+    indy_vdr_pool_get_transactions(pool_handle,
+                                   TurboModuleUtils::callbackWithResponse,
+                                   uintptr_t(state));
 
-    TurboModuleUtils::handleError(rt, code);
     return pool_handle;
 };
 
@@ -456,9 +467,10 @@ double IndyVdrCxx::pool_get_verifiers(jsi::Runtime &rt, const jsi::Object &optio
     State *state = new State(&cb);
     state->rt = &rt;
     
-    ErrorCode code = indy_vdr_pool_get_verifiers(pool_handle, TurboModuleUtils::callbackWithResponse, uintptr_t(state));
+    indy_vdr_pool_get_verifiers(pool_handle,
+                                TurboModuleUtils::callbackWithResponse,
+                                uintptr_t(state));
 
-    TurboModuleUtils::handleError(rt, code);
     return pool_handle;
 };
 
@@ -472,13 +484,13 @@ double IndyVdrCxx::pool_submit_action(jsi::Runtime &rt, const jsi::Object &optio
     State *state = new State(&cb);
     state->rt = &rt;
     
-    ErrorCode code = indy_vdr_pool_submit_action(pool_handle,
-                                                 request_handle,
-                                                 nodes.length() > 0 ? nodes.c_str() : nullptr,
-                                                 timeout,
-                                                 TurboModuleUtils::callbackWithResponse, uintptr_t(state));
-
-    TurboModuleUtils::handleError(rt, code);
+    indy_vdr_pool_submit_action(pool_handle,
+                                request_handle,
+                                nodes.length() > 0 ? nodes.c_str() : nullptr,
+                                timeout,
+                                TurboModuleUtils::callbackWithResponse,
+                                uintptr_t(state));
+    
     return pool_handle;
 };
 
@@ -490,11 +502,11 @@ double IndyVdrCxx::pool_submit_request(jsi::Runtime &rt, const jsi::Object &opti
     State *state = new State(&cb);
     state->rt = &rt;
     
-    ErrorCode code = indy_vdr_pool_submit_request(pool_handle,
-                                                 request_handle,
-                                                 TurboModuleUtils::callbackWithResponse, uintptr_t(state));
+    indy_vdr_pool_submit_request(pool_handle,
+                                request_handle,
+                                TurboModuleUtils::callbackWithResponse,
+                                uintptr_t(state));
 
-    TurboModuleUtils::handleError(rt, code);
     return pool_handle;
 };
 
