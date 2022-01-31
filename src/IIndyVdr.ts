@@ -188,21 +188,25 @@ export type IndyVdrNativeBindings = {
 
   pool_refresh(options: { pool_handle: number; cb: Callback }): number;
 
+  // TODO: what is the type of the response
   pool_get_status(options: {
     pool_handle: number;
     cb: CallbackWithResponse;
   }): number;
 
+  // TODO: what is the type of the response
   pool_get_transactions(options: {
     pool_handle: number;
     cb: CallbackWithResponse;
   }): number;
 
+  // TODO: what is the type of the response
   pool_get_verifiers(options: {
     pool_handle: number;
     cb: CallbackWithResponse;
   }): number;
 
+  // TODO: what is the type of the response
   pool_submit_action(options: {
     pool_handle: number;
     request_handle: number;
@@ -211,6 +215,7 @@ export type IndyVdrNativeBindings = {
     cb: CallbackWithResponse;
   }): number;
 
+  // TODO: what is the type of the response
   pool_submit_request(options: {
     pool_handle: number;
     request_handle: number;
@@ -225,8 +230,7 @@ export type IndyVdrNativeBindings = {
     taa_digest?: string;
     acc_mech_type: string;
     time: number;
-    output_p: string;
-  }): number;
+  }): string;
 
   request_free(options: { request_handle: number }): number;
 

@@ -53,7 +53,7 @@ virtual double pool_get_verifiers(jsi::Runtime &rt, const jsi::Object &options) 
 virtual double pool_submit_action(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual double pool_submit_request(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual double pool_close(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double prepare_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual jsi::String prepare_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual double request_free(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual jsi::String request_get_body(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual jsi::String request_get_signature_input(jsi::Runtime &rt, const jsi::Object &options) = 0;

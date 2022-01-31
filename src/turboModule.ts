@@ -75,7 +75,7 @@ interface IndyVdrTscodegen extends TurboModule {
 
   pool_close(options: {}): number;
 
-  prepare_txn_author_agreement_acceptance(options: {}): number;
+  prepare_txn_author_agreement_acceptance(options: {}): string;
 
   request_free(options: {}): number;
 

@@ -482,11 +482,50 @@ double IndyVdrCxx::pool_submit_action(jsi::Runtime &rt, const jsi::Object &optio
     return pool_handle;
 };
 
-double IndyVdrCxx::pool_submit_request(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+double IndyVdrCxx::pool_submit_request(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t pool_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "pool_handle"));
+    uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));
+    
+    jsi::Function cb = options.getPropertyAsFunction(rt, "cb");
+    State *state = new State(&cb);
+    state->rt = &rt;
+    
+    ErrorCode code = indy_vdr_pool_submit_request(pool_handle,
+                                                 request_handle,
+                                                 TurboModuleUtils::callbackWithResponse, uintptr_t(state));
 
-double IndyVdrCxx::pool_close(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+    TurboModuleUtils::handleError(rt, code);
+    return pool_handle;
+};
 
-double IndyVdrCxx::prepare_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) {return 0;};
+double IndyVdrCxx::pool_close(jsi::Runtime &rt, const jsi::Object &options) {
+    uintptr_t pool_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "pool_handle"));
+    
+    ErrorCode code = indy_vdr_pool_close(pool_handle);
+    
+    TurboModuleUtils::handleError(rt, code);
+    return pool_handle;
+};
+
+jsi::String IndyVdrCxx::prepare_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) {
+    std::string text = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "text"));
+    std::string version = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "version"));
+    std::string taa_digest = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "taa_digest"));
+    std::string acc_mech_type = TurboModuleUtils::jsiToValue<std::string>(rt, options.getProperty(rt, "acc_mech_type"));
+    int32_t time = TurboModuleUtils::jsiToValue<int32_t>(rt, options.getProperty(rt, "time"));
+    const char* output;
+    
+    ErrorCode code = indy_vdr_prepare_txn_author_agreement_acceptance(text.c_str(),
+                                                                      version.c_str(),
+                                                                      taa_digest.c_str(),
+                                                                      acc_mech_type.c_str(),
+                                                                      time,
+                                                                      &output);
+
+    TurboModuleUtils::handleError(rt, code);
+    return jsi::String::createFromAscii(rt, output);
+    
+};
 
 double IndyVdrCxx::request_free(jsi::Runtime &rt, const jsi::Object &options) {
     uintptr_t request_handle = (uintptr_t)TurboModuleUtils::jsiToValue<int64_t>(rt, options.getProperty(rt, "request_handle"));

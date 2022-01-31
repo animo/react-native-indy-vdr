@@ -38,7 +38,8 @@ class IndyVdr {
     NativeIndyVdr.set_config({ config });
   }
 
-  // TODO: this causes rust to panic. How do we deal with this
+  // TODO: this causes rust to panic, if we call it for the second time.
+  //       How do we deal with this?
   public setDefaultLogger() {
     NativeIndyVdr.set_default_logger();
   }
@@ -410,6 +411,7 @@ class IndyVdr {
     });
   }
 
+  // TODO: do we want the rs prefix?
   public buildRichSchemaRequest(options: {
     submitterDid: string;
     rsId: string;
@@ -469,8 +471,6 @@ class IndyVdr {
       });
   }
 
-  // TODO: params from the serializedArguments does not seem to be serialized.
-  //       how is this going wrong?
   public poolCreate(options: { params: Record<string, unknown> }) {
     const { params } = serializeArguments(options) as SerializedOptions<
       typeof options
@@ -562,23 +562,21 @@ class IndyVdr {
     });
   }
 
-  // TODO: is output_p like handle_p
   public prepareTxnAuthorAgreementAcceptance(options: {
     text?: string;
     version?: string;
     taaDigest?: string;
     accMechType: string;
     time: number;
-    outputP: string;
   }) {
-    const { outputP, time, accMechType, text, version, taaDigest } =
-      serializeArguments(options) as SerializedOptions<typeof options>;
+    const { time, accMechType, text, version, taaDigest } = serializeArguments(
+      options
+    ) as SerializedOptions<typeof options>;
 
-    this.handle = NativeIndyVdr.prepare_txn_author_agreement_acceptance({
+    return NativeIndyVdr.prepare_txn_author_agreement_acceptance({
       time,
       text,
       version,
-      output_p: outputP,
       acc_mech_type: accMechType,
       taa_digest: taaDigest,
     });

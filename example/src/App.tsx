@@ -17,6 +17,7 @@ export default function App() {
   const [poolHandle, setPoolHandle] = React.useState(indyVdr.getPoolHandle);
   const [body, setBody] = React.useState('');
   const [signatureInput, setSignatureInput] = React.useState('');
+  const [prep, setPrep] = React.useState('');
 
   const functions: Func[] = [
     { version: () => indyVdr.version() },
@@ -296,6 +297,18 @@ export default function App() {
           acceptance: 'a',
         }),
     },
+    {
+      prepare_txn_author_agreement_acceptance: () =>
+        setPrep(
+          indyVdr.prepareTxnAuthorAgreementAcceptance({
+            time: 1,
+            accMechType: 'a',
+            text: 'a',
+            version: 'a',
+            taaDigest: 'a',
+          })
+        ),
+    },
   ];
 
   return (
@@ -308,6 +321,7 @@ export default function App() {
       <Text>functions mapped: {functions.length}</Text>
       <Text>body: {body}</Text>
       <Text>signatureInput: {signatureInput}</Text>
+      <Text>prep: {prep}</Text>
       <ScrollView>
         {functions.map((value) => {
           const [functionName, func] = Object.entries(value)[0];
