@@ -1,1 +1,1 @@
-export { IndyVdr } from './IndyVdr';
+export { IndyVdr } from './IndyVdr'

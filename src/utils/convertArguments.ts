@@ -1,21 +1,12 @@
 // TODO: RENAME
 
-import type { Callback, CallbackWithResponse } from 'src/IIndyVdr';
+import type { Callback, CallbackWithResponse } from 'src/IIndyVdr'
 
-type Argument =
-  | string
-  | number
-  | Record<string, unknown>
-  | Date
-  | Callback
-  | CallbackWithResponse;
+type Argument = string | number | Record<string, unknown> | Date | Callback | CallbackWithResponse
 
-type SerializedArgument = string | number | Callback | CallbackWithResponse;
+type SerializedArgument = string | number | Callback | CallbackWithResponse
 
-type SerializedArguments = Record<
-  string,
-  string | number | Callback | CallbackWithResponse
->;
+type SerializedArguments = Record<string, string | number | Callback | CallbackWithResponse>
 
 export type SerializedOptions<Type> = {
   [Property in keyof Type]: Type[Property] extends string
@@ -38,33 +29,30 @@ export type SerializedOptions<Type> = {
     ? Callback
     : Type[Property] extends CallbackWithResponse
     ? CallbackWithResponse
-    : unknown;
-};
+    : unknown
+}
 
 const serializeArguments = (args: Record<string, Argument>) => {
-  const retVal: SerializedArguments = {};
-  Object.entries(args).map(([key, val]) => (retVal[key] = serialize(val)));
-  return retVal;
-};
+  const retVal: SerializedArguments = {}
+  Object.entries(args).map(([key, val]) => (retVal[key] = serialize(val)))
+  return retVal
+}
 
 const serialize = (arg: Argument): SerializedArgument => {
   switch (typeof arg) {
     case 'string':
-      return arg;
+      return arg
     case 'number':
-      return arg;
+      return arg
     case 'function':
-      return arg;
+      return arg
     case 'object':
-      return isDate(arg)
-        ? (arg.valueOf() as number)
-        : (JSON.stringify(arg) as string);
+      return isDate(arg) ? (arg.valueOf() as number) : (JSON.stringify(arg) as string)
     default:
-      throw new Error('could not serialize value');
+      throw new Error('could not serialize value')
   }
-};
+}
 
-const isDate = <T extends Date | Record<string, unknown>>(arg: T) =>
-  typeof arg.getDay === 'function';
+const isDate = <T extends Date | Record<string, unknown>>(arg: T) => typeof arg.getDay === 'function'
 
-export { serializeArguments };
+export { serializeArguments }

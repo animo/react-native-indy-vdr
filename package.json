@@ -2,9 +2,6 @@
   "name": "react-native-indy-vdr",
   "version": "0.1.0",
   "description": "indy vdr wrapper for react native",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
-  "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
   "files": [
@@ -14,7 +11,6 @@
     "ios",
     "cpp",
     "react-native-indy-vdr.podspec",
-    "!lib/typescript/example",
     "!android/build",
     "!ios/build",
     "!**/__tests__",
@@ -45,6 +41,11 @@
   "homepage": "https://github.com/blu3beri/react-native-indy-vdr#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "react-native-tscodegen": "^0.68.4",
+    "react-native-tscodegen-types": "^0.67.3"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
@@ -110,11 +111,9 @@
       "prettier/prettier": [
         "error",
         {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
+          "printWidth": 120,
+          "semi": false,
+          "singleQuote": true
         }
       ]
     }
@@ -124,11 +123,9 @@
     "lib/"
   ],
   "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true
   },
   "react-native-builder-bob": {
     "source": "src",
@@ -143,10 +140,5 @@
         }
       ]
     ]
-  },
-  "dependencies": {
-    "buffer": "^6.0.3",
-    "react-native-tscodegen": "^0.68.4",
-    "react-native-tscodegen-types": "^0.67.3"
   }
 }
