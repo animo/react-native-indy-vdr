@@ -14,10 +14,8 @@
 namespace facebook {
 namespace react {
 class JSI_EXPORT IndyVdrCxxSpecJSI : public TurboModule {
-protected:
-  IndyVdrCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker);
-
 public:
+IndyVdrCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker);
 virtual jsi::String version(jsi::Runtime &rt) = 0;
 virtual jsi::String get_current_error(jsi::Runtime &rt) = 0;
 virtual void set_config(jsi::Runtime &rt, const jsi::Object &options) = 0;

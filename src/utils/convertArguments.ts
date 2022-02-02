@@ -2,7 +2,7 @@
 
 import type { Callback, CallbackWithResponse } from 'src/IIndyVdr'
 
-type Argument = string | number | Record<string, unknown> | Date | Callback | CallbackWithResponse
+type Argument = string | number | Record<string, unknown> | Array<unknown> | Date | Callback | CallbackWithResponse
 
 type SerializedArgument = string | number | Callback | CallbackWithResponse
 
@@ -14,6 +14,10 @@ export type SerializedOptions<Type> = {
     : Type[Property] extends number
     ? number
     : Type[Property] extends Record<string, unknown>
+    ? string
+    : Type[Property] extends Array<unknown>
+    ? string
+    : Type[Property] extends Array<unknown> | undefined
     ? string
     : Type[Property] extends Record<string, unknown> | undefined
     ? string | undefined
@@ -47,12 +51,10 @@ const serialize = (arg: Argument): SerializedArgument => {
     case 'function':
       return arg
     case 'object':
-      return isDate(arg) ? (arg.valueOf() as number) : (JSON.stringify(arg) as string)
+      return arg instanceof Date ? (arg.valueOf() as number) : JSON.stringify(arg)
     default:
       throw new Error('could not serialize value')
   }
 }
-
-const isDate = <T extends Date | Record<string, unknown>>(arg: T) => typeof arg.getDay === 'function'
 
 export { serializeArguments }
