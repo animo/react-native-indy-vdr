@@ -7,7 +7,7 @@
 using namespace facebook;
 using namespace react;
 
-// global state
+// state of a callback function
 struct State {
     jsi::Function cb;
     // TODO: can we not make this a void pointer
@@ -27,8 +27,6 @@ public:
     static void handleError(jsi::Runtime &rt, ErrorCode code);
 
     // Converts jsi values to regular cpp values
-    // jsi::String -> std::string
-    // jsi::Number -> double
     template <typename T>
     static T jsiToValue(jsi::Runtime &rt, jsi::Value value, bool optional = false);
 

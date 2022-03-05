@@ -24,7 +24,7 @@ public:
     void set_default_logger(jsi::Runtime &rt);
     void set_protocol_version(jsi::Runtime &rt, const jsi::Object &options);
     void set_socks_proxy(jsi::Runtime &rt, const jsi::Object &options);
-    
+
     double build_acceptance_mechanisms_request(jsi::Runtime &rt, const jsi::Object &options);
     double build_get_acceptance_mechanisms_request(jsi::Runtime &rt, const jsi::Object &options);
     double build_attrib_request(jsi::Runtime &rt, const jsi::Object &options);
@@ -51,23 +51,22 @@ public:
     double build_get_rich_schema_object_by_metadata_request(jsi::Runtime &rt, const jsi::Object &options);
     
     double pool_create(jsi::Runtime &rt, const jsi::Object &options);
-    double pool_refresh(jsi::Runtime &rt, const jsi::Object &options);
-    double pool_get_status(jsi::Runtime &rt, const jsi::Object &options);
-    double pool_get_transactions(jsi::Runtime &rt, const jsi::Object &options);
-    double pool_get_verifiers(jsi::Runtime &rt, const jsi::Object &options);
-    double pool_submit_action(jsi::Runtime &rt, const jsi::Object &options);
-    double pool_submit_request(jsi::Runtime &rt, const jsi::Object &options);
-    double pool_close(jsi::Runtime &rt, const jsi::Object &options);
     
+    void pool_refresh(jsi::Runtime &rt, const jsi::Object &options);
+    void pool_get_status(jsi::Runtime &rt, const jsi::Object &options);
+    void pool_get_transactions(jsi::Runtime &rt, const jsi::Object &options);
+    void pool_get_verifiers(jsi::Runtime &rt, const jsi::Object &options);
+    void pool_submit_action(jsi::Runtime &rt, const jsi::Object &options);
+    void pool_submit_request(jsi::Runtime &rt, const jsi::Object &options);
+    void pool_close(jsi::Runtime &rt, const jsi::Object &options);
     
-    double request_free(jsi::Runtime &rt, const jsi::Object &options);
-    double request_set_endorser(jsi::Runtime &rt, const jsi::Object &options);
-    double request_set_multi_signature(jsi::Runtime &rt, const jsi::Object &options);
-    double request_set_signature(jsi::Runtime &rt, const jsi::Object &options);
-    double request_set_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options);
-
+    void request_set_endorser(jsi::Runtime &rt, const jsi::Object &options);
+    void request_set_multi_signature(jsi::Runtime &rt, const jsi::Object &options);
+    void request_set_signature(jsi::Runtime &rt, const jsi::Object &options);
+    void request_set_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options);
+    void request_free(jsi::Runtime &rt, const jsi::Object &options);
+    
     jsi::String prepare_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options);
-    
     jsi::String request_get_body(jsi::Runtime &rt, const jsi::Object &options);
     jsi::String request_get_signature_input(jsi::Runtime &rt, const jsi::Object &options);
 };

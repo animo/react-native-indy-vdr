@@ -1,6 +1,4 @@
-// TODO: RENAME
-
-import type { Callback, CallbackWithResponse } from 'src/IIndyVdr'
+import type { Callback, CallbackWithResponse } from 'indy-vdr'
 
 type Argument = string | number | Record<string, unknown> | Array<unknown> | Date | Callback | CallbackWithResponse
 

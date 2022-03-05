@@ -26,7 +26,6 @@ void TurboModuleUtils::handleError(jsi::Runtime &rt, ErrorCode code) {
     throw jsi::JSError(rt, error_message);
 };
 
-// todo: pass void back or do we want to handle the errorCode in the js side so we can reject based on that?
 void TurboModuleUtils::callback(uintptr_t result, ErrorCode code) {
     State *s = reinterpret_cast<State*>(result);
     jsi::Function *cb = &s->cb;
@@ -45,7 +44,7 @@ void TurboModuleUtils::callbackWithResponse(uintptr_t result, ErrorCode code, co
 
 template <>
 std::string TurboModuleUtils::jsiToValue<std::string>(jsi::Runtime &rt, jsi::Value value, bool optional) {
-    // We return an because we cannot return a nullptr.
+    // We return an std::string() because we cannot return a nullptr.
     if ((value.isNull() || value.isUndefined()) && optional) return std::string();
   
     if (value.isString()) return value.asString(rt).utf8(rt);

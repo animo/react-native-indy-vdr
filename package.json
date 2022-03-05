@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "buffer": "^6.0.3",
+    "indy-vdr": "../shared",
     "react-native-tscodegen": "^0.68.4",
     "react-native-tscodegen-types": "^0.67.3"
   },

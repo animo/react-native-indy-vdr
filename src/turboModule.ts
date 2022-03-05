@@ -1,5 +1,4 @@
 import { TurboModule, TurboModuleRegistry } from 'react-native-tscodegen-types'
-import type { Assertion } from './utils/checkTypes'
 
 export interface IndyVdrTscodegen extends TurboModule {
   version(): string
@@ -64,35 +63,35 @@ export interface IndyVdrTscodegen extends TurboModule {
 
   pool_create(options: {}): number
 
-  pool_refresh(options: {}): number
+  pool_refresh(options: {}): void
 
-  pool_get_status(options: {}): number
+  pool_get_status(options: {}): void
 
-  pool_get_transactions(options: {}): number
+  pool_get_transactions(options: {}): void
 
-  pool_get_verifiers(options: {}): number
+  pool_get_verifiers(options: {}): void
 
-  pool_submit_action(options: {}): number
+  pool_submit_action(options: {}): void
 
-  pool_submit_request(options: {}): number
+  pool_submit_request(options: {}): void
 
-  pool_close(options: {}): number
+  pool_close(options: {}): void
 
   prepare_txn_author_agreement_acceptance(options: {}): string
 
-  request_free(options: {}): number
+  request_free(options: {}): void
 
   request_get_body(options: {}): string
 
   request_get_signature_input(options: {}): string
 
-  request_set_endorser(options: {}): number
+  request_set_endorser(options: {}): void
 
-  request_set_multi_signature(options: {}): number
+  request_set_multi_signature(options: {}): void
 
-  request_set_signature(options: {}): number
+  request_set_signature(options: {}): void
 
-  request_set_txn_author_agreement_acceptance(options: {}): number
+  request_set_txn_author_agreement_acceptance(options: {}): void
 }
 
 // We MUST export this according to tscodegen. We are ignoring it however.

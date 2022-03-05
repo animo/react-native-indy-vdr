@@ -14,8 +14,10 @@
 namespace facebook {
 namespace react {
 class JSI_EXPORT IndyVdrCxxSpecJSI : public TurboModule {
+protected:
+  IndyVdrCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker);
+
 public:
-IndyVdrCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker);
 virtual jsi::String version(jsi::Runtime &rt) = 0;
 virtual jsi::String get_current_error(jsi::Runtime &rt) = 0;
 virtual void set_config(jsi::Runtime &rt, const jsi::Object &options) = 0;
@@ -47,21 +49,21 @@ virtual double build_rich_schema_request(jsi::Runtime &rt, const jsi::Object &op
 virtual double build_get_rich_schema_object_by_id_request(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual double build_get_rich_schema_object_by_metadata_request(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual double pool_create(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double pool_refresh(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double pool_get_status(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double pool_get_transactions(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double pool_get_verifiers(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double pool_submit_action(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double pool_submit_request(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double pool_close(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void pool_refresh(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void pool_get_status(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void pool_get_transactions(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void pool_get_verifiers(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void pool_submit_action(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void pool_submit_request(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void pool_close(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual jsi::String prepare_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double request_free(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void request_free(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual jsi::String request_get_body(jsi::Runtime &rt, const jsi::Object &options) = 0;
 virtual jsi::String request_get_signature_input(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double request_set_endorser(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double request_set_multi_signature(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double request_set_signature(jsi::Runtime &rt, const jsi::Object &options) = 0;
-virtual double request_set_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void request_set_endorser(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void request_set_multi_signature(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void request_set_signature(jsi::Runtime &rt, const jsi::Object &options) = 0;
+virtual void request_set_txn_author_agreement_acceptance(jsi::Runtime &rt, const jsi::Object &options) = 0;
 
 };
 
